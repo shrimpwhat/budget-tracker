@@ -1,0 +1,36 @@
+.modal {
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &__content {
+    background: white;
+    width: 800px;
+    height: 600px;
+    margin: 100px auto 0 auto;
+    border: 1px solid rgba(128, 128, 128, 0.323);
+    border-radius: 10px;
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 40px;
+      // width: 400px;
+      // margin: auto;
+      // align-items: center;
+
+      &__label {
+        display: block;
+      }
+
+      &__input {
+        box-sizing: border-box;
+        width: 40%;
+      }
+    }
+  }
+}
