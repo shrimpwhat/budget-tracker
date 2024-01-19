@@ -1,9 +1,11 @@
+import CancelIcon from "../assets/cancel.svg";
+
 const AddForm = ({ closeModal }: { closeModal: () => void }) => {
   return (
     <div className="modal__overlay" onClick={closeModal}>
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
-        <button onClick={closeModal} className="modal__close-button">
-          X
+        <button onClick={closeModal} style={{ float: "right" }}>
+          <img src={CancelIcon} alt="" className="modal__close-icon" />
         </button>
 
         <form className="form">
