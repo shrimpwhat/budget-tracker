@@ -7,15 +7,21 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
         </button>
 
         <form className="form">
-          <div>
-            <div>
-              <input type="radio" name="type" id="income" required />
-              <label htmlFor="income">Доход</label>
-            </div>
-            <div>
-              <input type="radio" name="type" id="expense" />
-              <label htmlFor="income">Расход</label>
-            </div>
+          <div className="type-container">
+            <label>
+              <input
+                type="radio"
+                name="type"
+                id="income"
+                required
+                defaultChecked
+              />
+              <span>Доходы</span>
+            </label>
+            <label>
+              <input type="radio" name="type" id="expense" required />
+              <span>Расходы</span>
+            </label>
           </div>
           <div>
             <label htmlFor="category-input" className="form__label">
@@ -52,6 +58,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
             </label>
             <input className="form__input" id="note-input" />
           </div>
+          <button type="submit">Сохранить</button>
         </form>
       </div>
     </div>

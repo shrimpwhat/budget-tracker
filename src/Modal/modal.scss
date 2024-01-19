@@ -1,6 +1,6 @@
 .modal {
   &__overlay {
-    position: fixed;
+    position: absolute;
     inset: 0;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1);
@@ -8,20 +8,19 @@
 
   &__content {
     background: white;
-    width: 800px;
-    height: 600px;
+    width: 600px;
+    height: 550px;
     margin: 100px auto 0 auto;
     border: 1px solid rgba(128, 128, 128, 0.323);
     border-radius: 10px;
 
     .form {
       display: flex;
+      width: 350px;
       flex-direction: column;
-      gap: 20px;
+      gap: 40px;
       padding: 40px;
-      // width: 400px;
-      // margin: auto;
-      // align-items: center;
+      margin: auto;
 
       &__label {
         display: block;
@@ -29,7 +28,53 @@
 
       &__input {
         box-sizing: border-box;
-        width: 40%;
+        width: 100%;
+      }
+
+      input[type="radio"] {
+        appearance: none;
+      }
+
+      // input[type="radio"]:checked + span {
+      //   color: red;
+      // }
+
+      button[type="submit"] {
+        text-align: center;
+      }
+
+      .type-container {
+        font-size: 1.2rem;
+        width: max-content;
+        margin: auto;
+
+        label {
+          border: 1px solid grey;
+          padding: 5px 10px;
+          transition: all 0.2s;
+        }
+
+        label:first-child {
+          border-radius: 5px 0 0 5px;
+          border-right: 0;
+
+          &:has(input[type="radio"]:checked) {
+            color: white;
+            background-color: rgb(66, 166, 66);
+          }
+        }
+
+        label:last-child {
+          border-radius: 0 5px 5px 0;
+          &:has(input[type="radio"]:checked) {
+            color: white;
+            background-color: rgb(207, 71, 71);
+          }
+        }
+
+        input {
+          margin: 0;
+        }
       }
     }
   }
