@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import txReducer from "./txSlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    tx: txReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
