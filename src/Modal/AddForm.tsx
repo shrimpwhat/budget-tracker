@@ -36,7 +36,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
         type: txType.current,
         category: txCategory.current.value,
         value,
-        date,
+        timestamp: date.getTime(),
         note: txNote.current?.value ?? "",
       })
     );

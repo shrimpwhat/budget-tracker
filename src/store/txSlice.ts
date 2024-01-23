@@ -1,21 +1,33 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import db from "./db";
 
-type Tx = {
+export type Tx = {
   type: "0" | "1";
   category: string;
   value: number;
-  date: Date;
+  timestamp: number;
   note: string;
 };
 
-type State = {
-  txs: Tx[];
+export type TxState = {
+  transactions: Tx[];
   categories: string[];
   range?: [Date, Date];
 };
 
-const initialState: State = {
-  txs: [],
+export const loadTxState = createAsyncThunk("tx/loadState", async () => {
+  const txs = await db.getAll("txs");
+  const categories = await db
+    .getAll("categories")
+    .then((res) => res.map((el) => el.name));
+  return {
+    transactions: txs,
+    categories,
+  };
+});
+
+const initialState: TxState = {
+  transactions: [],
   categories: [],
 };
 
@@ -24,14 +36,21 @@ export const txSlice = createSlice({
   initialState,
   reducers: {
     addTx: (state, action: PayloadAction<Tx>) => {
-      state.txs.push(action.payload);
-      const set = new Set(state.categories);
-      if (!set.has(action.payload.category)) {
-        state.categories.push(action.payload.category);
-      }
+      db.put("txs", action.payload);
+      state.transactions.push(action.payload);
     },
+    addCateogry: (state, action: PayloadAction<string>) => {
+      state.categories.push(action.payload);
+    },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(loadTxState.fulfilled, (state, action) => {
+      state.transactions = action.payload.transactions;
+      state.categories = action.payload.categories;
+    });
   },
 });
 
-export const { addTx } = txSlice.actions;
+export const { addTx, addCateogry } = txSlice.actions;
 export default txSlice.reducer;
