@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import txReducer, { loadTxState } from "./txSlice";
+import txReducer, { loadRange } from "./txSlice";
 import { listenerMiddleware } from "./middleware";
 
 export const store = configureStore({
@@ -10,7 +10,7 @@ export const store = configureStore({
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
 
-store.dispatch(loadTxState());
+store.dispatch(loadRange());
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

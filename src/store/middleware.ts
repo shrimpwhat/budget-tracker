@@ -1,5 +1,4 @@
-import db from "./db";
-import { addTx, addCateogry } from "./txSlice";
+import { addTx, addCateogry, setRange, loadRange } from "./txSlice";
 import { createListenerMiddleware } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
@@ -10,8 +9,15 @@ listenerMiddleware.startListening({
     const state = listenerApi.getState() as RootState;
     const category = action.payload.category;
     if (!state.tx.categories.find((el) => el === category)) {
-      db.put("categories", { name: category });
+      // db.put("categories", { name: category });
       listenerApi.dispatch(addCateogry(category));
     }
+  },
+});
+
+listenerMiddleware.startListening({
+  actionCreator: setRange,
+  effect: (_, listenerApi) => {
+    listenerApi.dispatch(loadRange());
   },
 });

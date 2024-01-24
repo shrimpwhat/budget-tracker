@@ -89,7 +89,7 @@
 
           &:has(input[type="radio"]:checked) {
             color: white;
-            background-color: #079a80; //rgb(66, 166, 66);
+            background-color: #079a80;
           }
         }
 
@@ -97,7 +97,7 @@
           border-radius: 0 5px 5px 0;
           &:has(input[type="radio"]:checked) {
             color: white;
-            background-color: #f23645; //rgb(207, 71, 71);
+            background-color: #f23645;
           }
         }
 

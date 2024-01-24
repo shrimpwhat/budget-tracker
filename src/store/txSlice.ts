@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import db from "./db";
+import { RootState } from "./store";
 
 export type Tx = {
   type: "0" | "1";
@@ -12,24 +13,43 @@ export type Tx = {
 export type TxState = {
   transactions: Tx[];
   categories: string[];
-  range?: [Date, Date];
+  range: [number, number];
 };
-
-export const loadTxState = createAsyncThunk("tx/loadState", async () => {
-  const txs = await db.getAll("txs");
-  const categories = await db
-    .getAll("categories")
-    .then((res) => res.map((el) => el.name));
-  return {
-    transactions: txs,
-    categories,
-  };
-});
 
 const initialState: TxState = {
   transactions: [],
   categories: [],
+  range: JSON.parse(localStorage.getItem("range") || "[0, 0]"),
 };
+
+export const loadRange = createAsyncThunk(
+  "tx/loadState",
+  async (_, thunkApi) => {
+    const dbTransaction = db.transaction("txs");
+    const txs: Tx[] = [];
+    let start, end;
+    const range = (thunkApi.getState() as RootState).tx.range;
+    if (range[0] && range[1]) [start, end] = range;
+    else if (range[0]) {
+      start = range[0];
+      end = Infinity;
+    } else if (range[1]) {
+      start = 0;
+      end = range[1];
+    } else {
+      start = 0;
+      end = Infinity;
+    }
+    for await (const cursor of dbTransaction.store)
+      if (cursor.value.timestamp >= start && cursor.value.timestamp <= end)
+        txs.push(cursor.value);
+    const categories = Array.from(new Set(txs.map((tx) => tx.category)));
+    return {
+      transactions: txs,
+      categories,
+    };
+  }
+);
 
 export const txSlice = createSlice({
   name: "tx",
@@ -42,15 +62,19 @@ export const txSlice = createSlice({
     addCateogry: (state, action: PayloadAction<string>) => {
       state.categories.push(action.payload);
     },
+    setRange: (state, action: PayloadAction<[number, number]>) => {
+      state.range = action.payload;
+      localStorage.setItem("range", JSON.stringify(action.payload));
+    },
   },
 
   extraReducers: (builder) => {
-    builder.addCase(loadTxState.fulfilled, (state, action) => {
+    builder.addCase(loadRange.fulfilled, (state, action) => {
       state.transactions = action.payload.transactions;
       state.categories = action.payload.categories;
     });
   },
 });
 
-export const { addTx, addCateogry } = txSlice.actions;
+export const { addTx, addCateogry, setRange } = txSlice.actions;
 export default txSlice.reducer;

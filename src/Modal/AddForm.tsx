@@ -40,6 +40,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
         note: txNote.current?.value ?? "",
       })
     );
+    closeModal();
   };
 
   const changeType = (e: ChangeEvent<HTMLInputElement>) => {
