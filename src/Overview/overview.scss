@@ -1,0 +1,14 @@
+.overview {
+  margin-top: 40px;
+
+  form {
+    width: max-content;
+    margin: auto;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+  }
+}

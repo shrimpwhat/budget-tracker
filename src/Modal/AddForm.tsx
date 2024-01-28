@@ -7,7 +7,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.tx.categories);
 
-  const txType = useRef<"0" | "1">("0");
+  const txType = useRef<"income" | "expense">("income");
   const txCategory = useRef<HTMLInputElement>(null);
   const txValue = useRef<HTMLInputElement>(null);
   const txDate = useRef<HTMLInputElement>(null);
@@ -44,7 +44,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
   };
 
   const changeType = (e: ChangeEvent<HTMLInputElement>) => {
-    txType.current = e.target.value as "0" | "1";
+    txType.current = e.target.value as "income" | "expense";
   };
 
   return (
@@ -60,10 +60,9 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               <input
                 type="radio"
                 name="type"
-                id="income"
                 required
                 defaultChecked
-                value={0}
+                value={"income"}
                 onChange={changeType}
               />
               <span>Доходы</span>
@@ -72,8 +71,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               <input
                 type="radio"
                 name="type"
-                id="expense"
-                value={1}
+                value={"expense"}
                 onChange={changeType}
               />
               <span>Расходы</span>

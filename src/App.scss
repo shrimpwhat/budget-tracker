@@ -1,8 +1,17 @@
 :root {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI";
+  --theme-green: #079a80;
+  --theme-red: #f23645;
 }
 
 button {
   all: unset;
   cursor: pointer;
+}
+
+.App {
+  @media screen and (min-width: 768px) {
+    max-width: 75vw;
+    margin: auto;
+  }
 }

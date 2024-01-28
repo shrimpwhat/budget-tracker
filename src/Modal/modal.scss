@@ -1,5 +1,18 @@
 .add-container {
   overflow: hidden;
+
+  &__open-button {
+    border: 1px solid black;
+    font-size: 1.3rem;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.5s;
+
+    &:hover {
+      color: white;
+      background: rgb(60, 60, 60);
+    }
+  }
 }
 
 .modal {
@@ -15,7 +28,6 @@
 
   &__close-icon {
     width: 25px;
-    fill: red;
     margin: 10px 10px 0 0;
   }
 
@@ -23,7 +35,7 @@
     position: absolute;
     inset: 0;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.049);
+    background-color: rgba(0, 0, 0, 0.1);
     overflow: hidden;
   }
 
@@ -53,7 +65,7 @@
         width: 100%;
         height: 30px;
         border-radius: 5px;
-        border: 1px rgb(171, 171, 171) solid;
+        border: 1px lightgrey solid;
         font-size: 1rem;
       }
 

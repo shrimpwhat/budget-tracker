@@ -3,7 +3,7 @@ import db from "./db";
 import { RootState } from "./store";
 
 export type Tx = {
-  type: "0" | "1";
+  type: "income" | "expense";
   category: string;
   value: number;
   timestamp: number;
