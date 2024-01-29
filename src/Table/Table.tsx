@@ -1,22 +1,59 @@
 import { DataGrid, GridRowsProp, GridColDef, ruRU } from "@mui/x-data-grid";
 import { useAppSelector } from "../store/hooks";
-
-const rows: GridRowsProp = [
-  { id: 4, col1: "Hello", col2: "World" },
-  { id: 3, col1: "DataGridPro", col2: "is Awesome" },
-  { id: 1, col1: "MUI", col2: "is Amazing" },
-];
-
-const columns: GridColDef[] = [
-  { field: "col1", headerName: "Column 1" },
-  { field: "col2", headerName: "Column 2" },
-];
+import { useMemo } from "react";
+import "./table.scss";
 
 export default function Table() {
   const transactions = useAppSelector((state) => state.tx.transactions);
+  const categories = useAppSelector((state) => state.tx.categories);
+
+  const columns: GridColDef[] = useMemo(
+    () => [
+      {
+        field: "col1",
+        headerName: "Тип",
+        flex: 1,
+        type: "singleSelect",
+        valueOptions: [
+          { value: "income", label: "Доходы" },
+          { value: "expense", label: "Расходы" },
+        ],
+      },
+      {
+        field: "col2",
+        headerName: "Категория",
+        flex: 1,
+        type: "singleSelect",
+        valueOptions: categories,
+      },
+      { field: "col3", headerName: "Сумма", flex: 1, type: "number" },
+      {
+        field: "col4",
+        headerName: "Дата",
+        flex: 1,
+        type: "date",
+        valueGetter: ({ value }: { value: number }) => new Date(value),
+      },
+      { field: "col5", headerName: "Описание", flex: 1 },
+    ],
+    []
+  );
+
+  const rows: GridRowsProp = useMemo(
+    () =>
+      transactions.map((tx) => ({
+        id: tx.id,
+        col1: tx.type,
+        col2: tx.category,
+        col3: tx.value,
+        col4: tx.timestamp,
+        col5: tx.note,
+      })),
+    [transactions]
+  );
 
   return (
-    <div>
+    <div className="table">
       <DataGrid
         rows={rows}
         columns={columns}
