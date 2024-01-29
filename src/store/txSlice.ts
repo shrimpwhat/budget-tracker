@@ -3,6 +3,7 @@ import db from "./db";
 import { RootState } from "./store";
 
 export type Tx = {
+  id: number;
   type: "income" | "expense";
   category: string;
   value: number;
@@ -42,7 +43,8 @@ export const loadRange = createAsyncThunk(
     }
     for await (const cursor of dbTransaction.store)
       if (cursor.value.timestamp >= start && cursor.value.timestamp <= end)
-        txs.push(cursor.value);
+        txs.push({ ...cursor.value, id: cursor.primaryKey });
+
     const categories = Array.from(new Set(txs.map((tx) => tx.category)));
     return {
       transactions: txs,

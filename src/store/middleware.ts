@@ -9,7 +9,6 @@ listenerMiddleware.startListening({
     const state = listenerApi.getState() as RootState;
     const category = action.payload.category;
     if (!state.tx.categories.find((el) => el === category)) {
-      // db.put("categories", { name: category });
       listenerApi.dispatch(addCateogry(category));
     }
   },

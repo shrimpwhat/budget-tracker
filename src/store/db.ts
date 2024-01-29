@@ -3,16 +3,9 @@ import { Tx } from "./txSlice";
 
 interface AppDB extends DBSchema {
   txs: {
-    key: string;
-    value: Tx;
-    // indexes: { "by-date": number };
+    key: number;
+    value: Omit<Tx, "id">;
   };
-  // categories: {
-  //   key: string;
-  //   value: {
-  //     name: string;
-  //   };
-  // };
 }
 
 const db = await openDB<AppDB>("app-db", 1, {
@@ -21,11 +14,6 @@ const db = await openDB<AppDB>("app-db", 1, {
       keyPath: "id",
       autoIncrement: true,
     });
-    // store.createIndex("by-date", "timestamp");
-    // db.createObjectStore("categories", {
-    //   keyPath: "id",
-    //   autoIncrement: true,
-    // });
   },
 });
 
