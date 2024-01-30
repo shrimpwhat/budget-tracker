@@ -1,3 +1,20 @@
 .table {
   margin-top: 50px;
+
+  &__type-cell {
+    border: 2px solid black;
+    border-radius: 15px;
+    width: 80px;
+    text-align: center;
+
+    &__income {
+      color: var(--theme-green);
+      border-color: var(--theme-green);
+    }
+
+    &__expense {
+      color: var(--theme-red);
+      border-color: var(--theme-red);
+    }
+  }
 }

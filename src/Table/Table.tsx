@@ -1,4 +1,10 @@
-import { DataGrid, GridRowsProp, GridColDef, ruRU } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  ruRU,
+  GridRenderCellParams,
+} from "@mui/x-data-grid";
 import { useAppSelector } from "../store/hooks";
 import { useMemo } from "react";
 import "./table.scss";
@@ -18,6 +24,20 @@ export default function Table() {
           { value: "income", label: "Доходы" },
           { value: "expense", label: "Расходы" },
         ],
+        renderCell: (
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          params: GridRenderCellParams<any, "income" | "expense">
+        ) => (
+          <strong
+            className={`table__type-cell ${
+              params.value === "income"
+                ? "table__type-cell__income"
+                : "table__type-cell__expense"
+            }`}
+          >
+            {params.formattedValue}
+          </strong>
+        ),
       },
       {
         field: "col2",
@@ -26,7 +46,14 @@ export default function Table() {
         type: "singleSelect",
         valueOptions: categories,
       },
-      { field: "col3", headerName: "Сумма", flex: 1, type: "number" },
+      {
+        field: "col3",
+        headerName: "Сумма",
+        flex: 1,
+        type: "number",
+        valueFormatter: ({ value }: { value: number }) =>
+          value.toLocaleString("ru-RU", { style: "currency", currency: "RUB" }),
+      },
       {
         field: "col4",
         headerName: "Дата",

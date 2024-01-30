@@ -23,42 +23,11 @@ const initialState: TxState = {
   range: JSON.parse(localStorage.getItem("range") || "[0, 0]"),
 };
 
-export const loadRange = createAsyncThunk(
-  "tx/loadState",
-  async (_, thunkApi) => {
-    const dbTransaction = db.transaction("txs");
-    const txs: Tx[] = [];
-    let start, end;
-    const range = (thunkApi.getState() as RootState).tx.range;
-    if (range[0] && range[1]) [start, end] = range;
-    else if (range[0]) {
-      start = range[0];
-      end = Infinity;
-    } else if (range[1]) {
-      start = 0;
-      end = range[1];
-    } else {
-      start = 0;
-      end = Infinity;
-    }
-    for await (const cursor of dbTransaction.store)
-      if (cursor.value.timestamp >= start && cursor.value.timestamp <= end)
-        txs.push({ ...cursor.value, id: cursor.primaryKey });
-
-    const categories = Array.from(new Set(txs.map((tx) => tx.category)));
-    return {
-      transactions: txs,
-      categories,
-    };
-  }
-);
-
 export const txSlice = createSlice({
   name: "tx",
   initialState,
   reducers: {
     addTx: (state, action: PayloadAction<Tx>) => {
-      db.put("txs", action.payload);
       state.transactions.push(action.payload);
     },
     addCateogry: (state, action: PayloadAction<string>) => {
@@ -78,5 +47,52 @@ export const txSlice = createSlice({
   },
 });
 
-export const { addTx, addCateogry, setRange } = txSlice.actions;
+type ILoadRangeReturn = {
+  transactions: Tx[];
+  categories: string[];
+};
+
+export const loadRange = createAsyncThunk<
+  ILoadRangeReturn,
+  undefined,
+  { state: RootState }
+>("tx/loadRange", async (_, thunkApi) => {
+  const dbTransaction = db.transaction("txs");
+  const txs: Tx[] = [];
+  let start, end;
+  const range = thunkApi.getState().tx.range;
+  if (range[0] && range[1]) [start, end] = range;
+  else if (range[0]) {
+    start = range[0];
+    end = Infinity;
+  } else if (range[1]) {
+    start = 0;
+    end = range[1];
+  } else {
+    start = 0;
+    end = Infinity;
+  }
+  for await (const cursor of dbTransaction.store)
+    if (cursor.value.timestamp >= start && cursor.value.timestamp <= end)
+      txs.push({ ...cursor.value, id: cursor.key });
+
+  const categories = Array.from(new Set(txs.map((tx) => tx.category)));
+  return {
+    transactions: txs,
+    categories,
+  };
+});
+
+export const postTx = createAsyncThunk<
+  void,
+  Omit<Tx, "id">,
+  { state: RootState }
+>("tx/postTx", async (tx, thunkApi) => {
+  const id = await db.put("txs", tx);
+  thunkApi.dispatch(txSlice.actions.addTx({ ...tx, id }));
+  if (!thunkApi.getState().tx.categories.includes(tx.category))
+    thunkApi.dispatch(txSlice.actions.addCateogry(tx.category));
+});
+
+export const { setRange } = txSlice.actions;
 export default txSlice.reducer;

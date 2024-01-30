@@ -32,8 +32,13 @@ const Card = ({ type, content }: ICardProps) => {
           </div>
           <p className="list-item__subtitle">Максимум</p>
           <p className="list-item__description">
-            {content.max.category}:{" "}
-            <span className="list-item__value">{content.max.value}₽</span>
+            {content.max.category}
+            {content.max.category !== "Нет данных" && (
+              <>
+                {": "}
+                <span className="list-item__value">{content.max.value}₽</span>
+              </>
+            )}
           </p>
         </li>
         <li className="list-item">
@@ -42,8 +47,13 @@ const Card = ({ type, content }: ICardProps) => {
           </div>
           <p className="list-item__subtitle">Минимум</p>
           <p className="list-item__description">
-            {content.min.category}:{" "}
-            <span className="list-item__value">{content.min.value}₽</span>
+            {content.min.category}
+            {content.min.category !== "Нет данных" && (
+              <>
+                {": "}
+                <span className="list-item__value">{content.min.value}₽</span>
+              </>
+            )}
           </p>
         </li>
       </ul>

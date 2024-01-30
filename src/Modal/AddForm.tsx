@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import CancelIcon from "../assets/cancel.svg";
-import { addTx } from "../store/txSlice";
+import { postTx } from "../store/txSlice";
 
 const AddForm = ({ closeModal }: { closeModal: () => void }) => {
   const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
     }
 
     dispatch(
-      addTx({
+      postTx({
         type: txType.current,
         category: txCategory.current.value,
         value,
