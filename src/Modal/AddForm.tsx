@@ -22,8 +22,8 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
       alert("Введите корректную категорию");
       return;
     }
-    if (!value) {
-      alert("Введите корректную сумму");
+    if (!value || value <= 0) {
+      alert("Введите корректную сумму(больше нуля)");
       return;
     }
     if (!date) {
@@ -102,7 +102,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               className="form__input"
               id="value-input"
               type="number"
-              min="0"
+              min="1"
               required
               ref={txValue}
             />

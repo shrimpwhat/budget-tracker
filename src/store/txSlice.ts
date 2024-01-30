@@ -35,7 +35,6 @@ export const txSlice = createSlice({
     },
     setRange: (state, action: PayloadAction<[number, number]>) => {
       state.range = action.payload;
-      localStorage.setItem("range", JSON.stringify(action.payload));
     },
   },
 

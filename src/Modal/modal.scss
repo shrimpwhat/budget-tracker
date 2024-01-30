@@ -2,11 +2,12 @@
   overflow: hidden;
 
   &__open-button {
-    border: 1px solid black;
+    border: 2px solid black;
+    font-weight: 500;
     font-size: 1.3rem;
     padding: 10px;
-    border-radius: 10px;
-    transition: 0.5s;
+    border-radius: 5px;
+    transition: 0.3s;
 
     &:hover {
       color: white;

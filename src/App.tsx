@@ -1,4 +1,4 @@
-import AddButton from "./Modal/AddButton";
+import AddButton from "./Modal/OpenModalBtn";
 import "./App.scss";
 import Overview from "./Overview/Overview";
 import Table from "./Table/Table";

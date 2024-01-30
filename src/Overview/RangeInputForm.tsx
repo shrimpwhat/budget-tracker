@@ -21,6 +21,7 @@ const RangeInputForm = () => {
       args =
         variant === "start" ? [date.getTime(), end] : [start, date.getTime()];
     else args = variant === "start" ? [0, end] : [start, 0];
+    localStorage.setItem("range", JSON.stringify(args));
     dispatch(setRange(args));
   };
 

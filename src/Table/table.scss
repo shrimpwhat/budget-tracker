@@ -1,5 +1,7 @@
 .table {
   margin-top: 50px;
+  height: 500px;
+  box-shadow: var(--theme-shadow);
 
   &__type-cell {
     border: 2px solid black;

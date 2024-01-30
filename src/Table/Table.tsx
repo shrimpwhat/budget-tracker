@@ -18,7 +18,7 @@ export default function Table() {
       {
         field: "col1",
         headerName: "Тип",
-        flex: 1,
+        flex: 0.5,
         type: "singleSelect",
         valueOptions: [
           { value: "income", label: "Доходы" },
@@ -42,28 +42,30 @@ export default function Table() {
       {
         field: "col2",
         headerName: "Категория",
-        flex: 1,
+        flex: 0.7,
         type: "singleSelect",
         valueOptions: categories,
       },
       {
         field: "col3",
         headerName: "Сумма",
-        flex: 1,
+        flex: 0.7,
         type: "number",
         valueFormatter: ({ value }: { value: number }) =>
           value.toLocaleString("ru-RU", { style: "currency", currency: "RUB" }),
+        headerAlign: "left",
+        align: "left",
       },
       {
         field: "col4",
         headerName: "Дата",
-        flex: 1,
+        flex: 0.5,
         type: "date",
         valueGetter: ({ value }: { value: number }) => new Date(value),
       },
       { field: "col5", headerName: "Описание", flex: 1 },
     ],
-    []
+    [categories]
   );
 
   const rows: GridRowsProp = useMemo(
@@ -85,6 +87,13 @@ export default function Table() {
         rows={rows}
         columns={columns}
         localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+        sortingOrder={["desc", "asc"]}
+        initialState={{
+          sorting: {
+            sortModel: [{ field: "col4", sort: "desc" }],
+          },
+        }}
+        disableRowSelectionOnClick
       />
     </div>
   );
