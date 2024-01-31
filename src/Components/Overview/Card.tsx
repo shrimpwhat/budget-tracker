@@ -1,6 +1,7 @@
 import "./card.scss";
 import ArrowUpIcon from "../../assets/ArrowUp.svg?react";
 import ArrowDownIcon from "../../assets/ArrowDown.svg?react";
+import { CurrencyString } from "../../utils";
 
 interface ICardProps {
   type: "income" | "expense";
@@ -23,7 +24,7 @@ const Card = ({ type, content }: ICardProps) => {
       <h1 className="card__title">
         {type === "income" ? "Доходы" : "Расходы"}
         {": "}
-        <span className="card__title-sum">{content.sum}₽</span>
+        <span className="card__title-sum">{CurrencyString(content.sum)}</span>
       </h1>
       <ul className="card__content">
         <li className="list-item">
@@ -36,7 +37,9 @@ const Card = ({ type, content }: ICardProps) => {
             {content.max.category !== "Нет данных" && (
               <>
                 {": "}
-                <span className="list-item__value">{content.max.value}₽</span>
+                <span className="list-item__value">
+                  {CurrencyString(content.max.value)}
+                </span>
               </>
             )}
           </p>
@@ -51,7 +54,9 @@ const Card = ({ type, content }: ICardProps) => {
             {content.min.category !== "Нет данных" && (
               <>
                 {": "}
-                <span className="list-item__value">{content.min.value}₽</span>
+                <span className="list-item__value">
+                  {CurrencyString(content.min.value)}
+                </span>
               </>
             )}
           </p>

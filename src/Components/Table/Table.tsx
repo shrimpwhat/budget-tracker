@@ -9,6 +9,7 @@ import { useAppSelector } from "../../store/hooks";
 import { useMemo } from "react";
 import "./table.scss";
 import { Tooltip } from "@mui/material";
+import { CurrencyString } from "../../utils";
 
 export default function Table() {
   const transactions = useAppSelector((state) => state.tx.transactions);
@@ -21,6 +22,7 @@ export default function Table() {
         headerName: "Тип",
         flex: 0.5,
         type: "singleSelect",
+        editable: true,
         valueOptions: [
           { value: "income", label: "Доходы" },
           { value: "expense", label: "Расходы" },
@@ -46,16 +48,17 @@ export default function Table() {
         flex: 0.7,
         type: "singleSelect",
         valueOptions: categories,
+        editable: true,
       },
       {
         field: "col3",
         headerName: "Сумма",
         flex: 0.7,
         type: "number",
-        valueFormatter: ({ value }: { value: number }) =>
-          value.toLocaleString("ru-RU", { style: "currency", currency: "RUB" }),
+        valueFormatter: ({ value }: { value: number }) => CurrencyString(value),
         headerAlign: "left",
         align: "left",
+        editable: true,
       },
       {
         field: "col4",
@@ -63,11 +66,14 @@ export default function Table() {
         flex: 0.5,
         type: "date",
         valueGetter: ({ value }: { value: number }) => new Date(value),
+        editable: true,
       },
       {
         field: "col5",
         headerName: "Описание",
         flex: 1,
+        editable: true,
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         renderCell: (params: GridRenderCellParams<any, string>) => (
           <Tooltip title={params.value}>
