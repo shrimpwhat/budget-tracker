@@ -5,9 +5,10 @@ import {
   ruRU,
   GridRenderCellParams,
 } from "@mui/x-data-grid";
-import { useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../../store/hooks";
 import { useMemo } from "react";
 import "./table.scss";
+import { Tooltip } from "@mui/material";
 
 export default function Table() {
   const transactions = useAppSelector((state) => state.tx.transactions);
@@ -63,7 +64,25 @@ export default function Table() {
         type: "date",
         valueGetter: ({ value }: { value: number }) => new Date(value),
       },
-      { field: "col5", headerName: "Описание", flex: 1 },
+      {
+        field: "col5",
+        headerName: "Описание",
+        flex: 1,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        renderCell: (params: GridRenderCellParams<any, string>) => (
+          <Tooltip title={params.value}>
+            <p
+              style={{
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {params.value}
+            </p>
+          </Tooltip>
+        ),
+      },
     ],
     [categories]
   );

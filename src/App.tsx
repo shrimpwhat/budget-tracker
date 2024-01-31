@@ -1,7 +1,7 @@
-import AddButton from "./Modal/OpenModalBtn";
+import AddButton from "./Components/Modal/OpenModalBtn";
 import "./App.scss";
-import Overview from "./Overview/Overview";
-import Table from "./Table/Table";
+import Overview from "./Components/Overview/Overview";
+import Table from "./Components/Table/Table";
 
 function App() {
   return (

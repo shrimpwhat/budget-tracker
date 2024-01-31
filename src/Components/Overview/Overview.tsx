@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../../store/hooks";
 import RangeInputForm from "./RangeInputForm";
 import "./overview.scss";
 import Card from "./Card";

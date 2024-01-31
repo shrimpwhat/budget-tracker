@@ -1,6 +1,6 @@
 import "./card.scss";
-import ArrowUpIcon from "../assets/ArrowUp.svg?react";
-import ArrowDownIcon from "../assets/ArrowDown.svg?react";
+import ArrowUpIcon from "../../assets/ArrowUp.svg?react";
+import ArrowDownIcon from "../../assets/ArrowDown.svg?react";
 
 interface ICardProps {
   type: "income" | "expense";

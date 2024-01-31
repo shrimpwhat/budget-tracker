@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useRef } from "react";
-import { useAppSelector, useAppDispatch } from "../store/hooks";
-import CancelIcon from "../assets/cancel.svg";
-import { postTx } from "../store/txSlice";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import CancelIcon from "../../assets/cancel.svg";
+import { postTx } from "../../store/txSlice";
 
 const AddForm = ({ closeModal }: { closeModal: () => void }) => {
   const dispatch = useAppDispatch();

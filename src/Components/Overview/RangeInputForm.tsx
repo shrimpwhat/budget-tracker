@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { setRange } from "../store/txSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { setRange } from "../../store/txSlice";
 
 const RangeInputForm = () => {
   const [start, end] = useAppSelector((state) => state.tx.range);
