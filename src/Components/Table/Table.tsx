@@ -50,9 +50,12 @@ export default function Table() {
     return updated;
   };
 
-  const handleDelete = (id: number) => {
-    dispatch(deleteTx(id));
-  };
+  const handleDelete = useCallback(
+    (id: number) => {
+      dispatch(deleteTx(id));
+    },
+    [dispatch]
+  );
 
   const columns: GridColDef[] = useMemo(
     () => [
