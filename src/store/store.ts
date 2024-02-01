@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import txReducer, { loadRange } from "./txSlice";
+import txReducer from "./txSlice";
+import dateRangeSlice, { loadRange } from "./dateRangeSlice";
 import { listenerMiddleware } from "./middleware";
 
 export const store = configureStore({
   reducer: {
     tx: txReducer,
+    dateRange: dateRangeSlice,
   },
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });

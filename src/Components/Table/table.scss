@@ -19,4 +19,13 @@
       border-color: var(--theme-red);
     }
   }
+
+  &__value-cell:has(.Mui-error) {
+    border: 1px solid var(--theme-red) !important;
+  }
+
+  &__delete-icon {
+    width: 20px;
+    fill: grey;
+  }
 }

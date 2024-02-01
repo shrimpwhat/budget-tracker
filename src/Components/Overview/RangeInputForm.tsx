@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { setRange } from "../../store/txSlice";
+import { setRange } from "../../store/dateRangeSlice";
 
 const RangeInputForm = () => {
-  const [start, end] = useAppSelector((state) => state.tx.range);
+  const { start, end } = useAppSelector((state) => state.dateRange);
   const dispatch = useAppDispatch();
 
   const getDateString = (timestamp: number) => {
-    return timestamp === 0
+    return timestamp === 0 || timestamp === Infinity
       ? undefined
       : new Date(timestamp).toISOString().split("T")[0];
   };
@@ -20,8 +20,9 @@ const RangeInputForm = () => {
     if (date)
       args =
         variant === "start" ? [date.getTime(), end] : [start, date.getTime()];
-    else args = variant === "start" ? [0, end] : [start, 0];
-    localStorage.setItem("range", JSON.stringify(args));
+    else args = variant === "start" ? [0, end] : [start, Infinity];
+    localStorage.setItem("range-start", args[0].toString());
+    localStorage.setItem("range-end", args[1].toString());
     dispatch(setRange(args));
   };
 

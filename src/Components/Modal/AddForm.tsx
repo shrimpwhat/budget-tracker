@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import CancelIcon from "../../assets/cancel.svg";
-import { postTx } from "../../store/txSlice";
+import CancelIcon from "../../assets/Cancel.svg";
+import { postTx, selectCategories } from "../../store/txSlice";
 
 const AddForm = ({ closeModal }: { closeModal: () => void }) => {
   const dispatch = useAppDispatch();
-  const categories = useAppSelector((state) => state.tx.categories);
+  const categories = useAppSelector(selectCategories);
 
   const txType = useRef<"income" | "expense">("income");
   const txCategory = useRef<HTMLInputElement>(null);
@@ -117,6 +117,9 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               type="date"
               required
               ref={txDate}
+              onClick={(e) => {
+                (e.target as HTMLInputElement).showPicker();
+              }}
             />
           </div>
           <div>

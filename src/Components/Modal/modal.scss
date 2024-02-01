@@ -17,16 +17,6 @@
 }
 
 .modal {
-  @keyframes show-up {
-    from {
-      transform: translateY(100vh);
-    }
-
-    to {
-      transform: none;
-    }
-  }
-
   &__close-icon {
     width: 25px;
     margin: 10px 10px 0 0;
@@ -46,9 +36,19 @@
     width: 600px;
     animation: show-up 1s;
     margin: 100px auto 0 auto;
-    border: 1px solid rgba(128, 128, 128, 0.323);
+    border: 1px solid lightgrey;
+    box-shadow: var(--theme-shadow);
     border-radius: 10px;
     animation: show-up 0.3s ease;
+    @keyframes show-up {
+      from {
+        transform: translateY(100vh);
+      }
+
+      to {
+        transform: none;
+      }
+    }
 
     .form {
       display: flex;

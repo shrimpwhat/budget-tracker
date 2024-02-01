@@ -1,9 +1,14 @@
-import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  createSlice,
+  createAsyncThunk,
+  createSelector,
+} from "@reduxjs/toolkit";
 import db from "./db";
-import { RootState } from "./store";
+import { AppDispatch, RootState } from "./store";
+import { loadRange } from "./dateRangeSlice";
 
 export type Tx = {
-  id: number;
   type: "income" | "expense";
   category: string;
   value: number;
@@ -12,86 +17,101 @@ export type Tx = {
 };
 
 export type TxState = {
-  transactions: Tx[];
-  categories: string[];
-  range: [number, number];
+  transactions: Record<number, Tx>;
+  categories: Record<string, number>;
 };
 
 const initialState: TxState = {
-  transactions: [],
-  categories: [],
-  range: JSON.parse(localStorage.getItem("range") || "[0, 0]"),
+  transactions: {},
+  categories: {},
+};
+
+const incrementCategory = (state: TxState, category: string) => {
+  state.categories[category] = (state.categories[category] ?? 0) + 1;
+};
+
+const decrementCategory = (state: TxState, category: string) => {
+  state.categories[category] -= 1;
+  if (!state.categories[category]) delete state.categories[category];
 };
 
 export const txSlice = createSlice({
   name: "tx",
   initialState,
   reducers: {
-    addTx: (state, action: PayloadAction<Tx>) => {
-      state.transactions.push(action.payload);
+    editTx: (
+      state,
+      action: PayloadAction<{
+        id: number;
+        newTx: Tx;
+      }>
+    ) => {
+      const { id, newTx } = action.payload;
+      const oldTx = state.transactions[id];
+
+      if (oldTx.category !== newTx.category) {
+        decrementCategory(state, oldTx.category);
+        incrementCategory(state, newTx.category);
+      }
+
+      state.transactions[id] = newTx;
     },
-    addCateogry: (state, action: PayloadAction<string>) => {
-      state.categories.push(action.payload);
-    },
-    setRange: (state, action: PayloadAction<[number, number]>) => {
-      state.range = action.payload;
+    removeTx: (state, action: PayloadAction<number>) => {
+      const tx = state.transactions[action.payload];
+      decrementCategory(state, tx.category);
+      delete state.transactions[action.payload];
     },
   },
 
   extraReducers: (builder) => {
+    // Load date range
     builder.addCase(loadRange.fulfilled, (state, action) => {
       state.transactions = action.payload.transactions;
       state.categories = action.payload.categories;
     });
+
+    // Add tx
+    builder.addCase(postTx.fulfilled, (state, action) => {
+      state.transactions[action.payload.id] = action.payload.tx;
+      incrementCategory(state, action.payload.tx.category);
+    });
   },
 });
 
-type ILoadRangeReturn = {
-  transactions: Tx[];
-  categories: string[];
-};
-
-export const loadRange = createAsyncThunk<
-  ILoadRangeReturn,
-  undefined,
-  { state: RootState }
->("tx/loadRange", async (_, thunkApi) => {
-  const dbTransaction = db.transaction("txs");
-  const txs: Tx[] = [];
-  let start, end;
-  const range = thunkApi.getState().tx.range;
-  if (range[0] && range[1]) [start, end] = range;
-  else if (range[0]) {
-    start = range[0];
-    end = Infinity;
-  } else if (range[1]) {
-    start = 0;
-    end = range[1];
-  } else {
-    start = 0;
-    end = Infinity;
-  }
-  for await (const cursor of dbTransaction.store)
-    if (cursor.value.timestamp >= start && cursor.value.timestamp <= end)
-      txs.push({ ...cursor.value, id: cursor.key });
-
-  const categories = Array.from(new Set(txs.map((tx) => tx.category)));
-  return {
-    transactions: txs,
-    categories,
-  };
-});
-
 export const postTx = createAsyncThunk<
-  void,
-  Omit<Tx, "id">,
+  { id: number; tx: Tx },
+  Tx,
   { state: RootState }
->("tx/postTx", async (tx, thunkApi) => {
-  const id = await db.put("txs", tx);
-  thunkApi.dispatch(txSlice.actions.addTx({ ...tx, id }));
-  if (!thunkApi.getState().tx.categories.includes(tx.category))
-    thunkApi.dispatch(txSlice.actions.addCateogry(tx.category));
+>("tx/postTx", async (tx) => {
+  const id = await db.put("transactions", tx);
+  return { id, tx };
 });
 
-export const { setRange } = txSlice.actions;
+export const updateTx = createAsyncThunk<
+  void,
+  {
+    id: number;
+    newTx: Tx;
+  },
+  { dispatch: AppDispatch }
+>("tx/updateTx", async ({ id, newTx }, { dispatch }) => {
+  await db.put("transactions", newTx, id);
+  dispatch(editTx({ id, newTx }));
+});
+
+export const deleteTx = createAsyncThunk<
+  void,
+  number,
+  { dispatch: AppDispatch }
+>("tx/deleteTx", async (id, { dispatch }) => {
+  await db.delete("transactions", id);
+  dispatch(removeTx(id));
+});
+
+export const selectCategories = createSelector(
+  [(state: RootState) => state.tx.categories],
+  (categories) => Object.keys(categories)
+);
+
+export const { editTx, removeTx } = txSlice.actions;
 export default txSlice.reducer;

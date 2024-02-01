@@ -2,16 +2,15 @@ import { DBSchema, openDB } from "idb";
 import { Tx } from "./txSlice";
 
 interface AppDB extends DBSchema {
-  txs: {
+  transactions: {
     key: number;
-    value: Omit<Tx, "id">;
+    value: Tx;
   };
 }
 
-const db = await openDB<AppDB>("app-db", 1, {
+const db = await openDB<AppDB>("budget-db", 1, {
   upgrade(db) {
-    db.createObjectStore("txs", {
-      keyPath: "id",
+    db.createObjectStore("transactions", {
       autoIncrement: true,
     });
   },

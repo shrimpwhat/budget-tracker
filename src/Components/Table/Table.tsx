@@ -1,24 +1,63 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   DataGrid,
   GridRowsProp,
   GridColDef,
   ruRU,
   GridRenderCellParams,
+  GridPreProcessEditCellProps,
+  GridValueSetterParams,
+  GridRowModel,
+  GridActionsCellItem,
 } from "@mui/x-data-grid";
-import { useAppSelector } from "../../store/hooks";
-import { useMemo } from "react";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { useMemo, useCallback } from "react";
 import "./table.scss";
 import { Tooltip } from "@mui/material";
 import { CurrencyString } from "../../utils";
+import { deleteTx, selectCategories, updateTx } from "../../store/txSlice";
+import DeleteIcon from "../../assets/Delete.svg?react";
 
 export default function Table() {
   const transactions = useAppSelector((state) => state.tx.transactions);
-  const categories = useAppSelector((state) => state.tx.categories);
+  const categories = useAppSelector(selectCategories);
+
+  const dispatch = useAppDispatch();
+
+  const handleRowUpdate = (updated: GridRowModel, original: GridRowModel) => {
+    let equal = true;
+    for (const key in updated) {
+      if (updated[key] !== original[key]) {
+        equal = false;
+        break;
+      }
+    }
+
+    if (!equal)
+      dispatch(
+        updateTx({
+          id: Number(updated.id),
+          newTx: {
+            type: updated.type,
+            category: updated.category,
+            value: updated.value,
+            timestamp: updated.timestamp,
+            note: updated.note,
+          },
+        })
+      );
+
+    return updated;
+  };
+
+  const handleDelete = (id: number) => {
+    dispatch(deleteTx(id));
+  };
 
   const columns: GridColDef[] = useMemo(
     () => [
       {
-        field: "col1",
+        field: "type",
         headerName: "Тип",
         flex: 0.5,
         type: "singleSelect",
@@ -28,7 +67,6 @@ export default function Table() {
           { value: "expense", label: "Расходы" },
         ],
         renderCell: (
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           params: GridRenderCellParams<any, "income" | "expense">
         ) => (
           <strong
@@ -43,38 +81,55 @@ export default function Table() {
         ),
       },
       {
-        field: "col2",
+        field: "category",
         headerName: "Категория",
-        flex: 0.7,
+        flex: 0.6,
         type: "singleSelect",
         valueOptions: categories,
         editable: true,
       },
       {
-        field: "col3",
+        field: "value",
         headerName: "Сумма",
-        flex: 0.7,
+        flex: 0.6,
         type: "number",
         valueFormatter: ({ value }: { value: number }) => CurrencyString(value),
         headerAlign: "left",
         align: "left",
         editable: true,
+        cellClassName: "table__value-cell",
+        preProcessEditCellProps: (
+          params: GridPreProcessEditCellProps<number>
+        ) => {
+          const hasError = (params.props.value ?? 0) <= 0;
+          return { ...params.props, error: hasError };
+        },
       },
       {
-        field: "col4",
+        field: "timestamp",
         headerName: "Дата",
-        flex: 0.5,
+        flex: 0.3,
         type: "date",
         valueGetter: ({ value }: { value: number }) => new Date(value),
+        valueSetter: (params: GridValueSetterParams) => {
+          const date = new Date(params.value as string);
+          const timestamp = date.getTime();
+          return { ...params.row, timestamp };
+        },
+        preProcessEditCellProps: (
+          params: GridPreProcessEditCellProps<string>
+        ) => {
+          const hasError = !params.props.value;
+          return { ...params.props, error: hasError };
+        },
         editable: true,
       },
       {
-        field: "col5",
+        field: "note",
         headerName: "Описание",
         flex: 1,
         editable: true,
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         renderCell: (params: GridRenderCellParams<any, string>) => (
           <Tooltip title={params.value}>
             <p
@@ -89,22 +144,32 @@ export default function Table() {
           </Tooltip>
         ),
       },
+      {
+        field: "delete",
+        type: "actions",
+        cellClassName: "table__delete-cell",
+        getActions: ({ id }) => {
+          return [
+            <GridActionsCellItem
+              icon={<DeleteIcon className="table__delete-icon" />}
+              label="Удалить"
+              onClick={() => handleDelete(Number(id))}
+            />,
+          ];
+        },
+      },
     ],
-    [categories]
+    [categories, handleDelete]
   );
 
-  const rows: GridRowsProp = useMemo(
-    () =>
-      transactions.map((tx) => ({
-        id: tx.id,
-        col1: tx.type,
-        col2: tx.category,
-        col3: tx.value,
-        col4: tx.timestamp,
-        col5: tx.note,
-      })),
-    [transactions]
-  );
+  const rows: GridRowsProp = useMemo(() => {
+    return Object.entries(transactions).map(([id, tx]) => {
+      return {
+        id,
+        ...tx,
+      };
+    });
+  }, [transactions]);
 
   return (
     <div className="table">
@@ -115,10 +180,12 @@ export default function Table() {
         sortingOrder={["desc", "asc"]}
         initialState={{
           sorting: {
-            sortModel: [{ field: "col4", sort: "desc" }],
+            sortModel: [{ field: "timestamp", sort: "desc" }],
           },
         }}
         disableRowSelectionOnClick
+        processRowUpdate={handleRowUpdate}
+        onProcessRowUpdateError={(error) => console.error(error)}
       />
     </div>
   );
