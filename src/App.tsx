@@ -2,6 +2,7 @@ import AddButton from "./Components/Modal/OpenModalBtn";
 import "./App.scss";
 import Overview from "./Components/Overview/Overview";
 import Table from "./Components/Table/Table";
+import Charts from "./Components/Charts/Container";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <AddButton />
       <Overview />
       <Table />
+      <Charts />
     </div>
   );
 }

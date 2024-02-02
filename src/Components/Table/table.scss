@@ -10,18 +10,18 @@
     text-align: center;
 
     &__income {
-      color: var(--theme-green);
-      border-color: var(--theme-green);
+      color: var(--color-green);
+      border-color: var(--color-green);
     }
 
     &__expense {
-      color: var(--theme-red);
-      border-color: var(--theme-red);
+      color: var(--color-red);
+      border-color: var(--color-red);
     }
   }
 
   &__value-cell:has(.Mui-error) {
-    border: 1px solid var(--theme-red) !important;
+    border: 1px solid var(--color-red) !important;
   }
 
   &__delete-icon {

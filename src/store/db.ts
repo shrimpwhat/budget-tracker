@@ -1,5 +1,4 @@
 import { DBSchema, openDB } from "idb";
-import { Tx } from "./txSlice";
 
 interface AppDB extends DBSchema {
   transactions: {

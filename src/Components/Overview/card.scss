@@ -7,11 +7,11 @@
   box-shadow: var(--theme-shadow);
 
   &.income {
-    --primary-color: var(--theme-green);
+    --primary-color: var(--color-green);
   }
 
   &.expense {
-    --primary-color: var(--theme-red);
+    --primary-color: var(--color-red);
   }
 
   &__title {

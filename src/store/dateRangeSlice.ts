@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Tx } from "./txSlice";
 import { RootState } from "./store";
 import db from "./db";
 

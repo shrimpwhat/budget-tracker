@@ -8,14 +8,6 @@ import db from "./db";
 import { AppDispatch, RootState } from "./store";
 import { loadRange } from "./dateRangeSlice";
 
-export type Tx = {
-  type: "income" | "expense";
-  category: string;
-  value: number;
-  timestamp: number;
-  note: string;
-};
-
 export type TxState = {
   transactions: Record<number, Tx>;
   categories: Record<string, number>;

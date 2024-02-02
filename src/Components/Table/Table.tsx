@@ -86,7 +86,7 @@ export default function Table() {
       {
         field: "category",
         headerName: "Категория",
-        flex: 0.6,
+        flex: 0.7,
         type: "singleSelect",
         valueOptions: categories,
         editable: true,
@@ -111,7 +111,7 @@ export default function Table() {
       {
         field: "timestamp",
         headerName: "Дата",
-        flex: 0.3,
+        flex: 0.4,
         type: "date",
         valueGetter: ({ value }: { value: number }) => new Date(value),
         valueSetter: (params: GridValueSetterParams) => {
