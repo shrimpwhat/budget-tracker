@@ -1,6 +1,7 @@
 import { useAppSelector } from "../../store/hooks";
 import { useMemo } from "react";
 import NetworthChart from "./NetworthChart";
+import PieChart from "./PieChart";
 
 const Charts = () => {
   const transactions = useAppSelector((state) => state.tx.transactions);
@@ -13,30 +14,56 @@ const Charts = () => {
 
   const props = useMemo(() => {
     const props: {
-      incomes: Record<string, number>;
-      expenses: Record<string, number>;
+      incomes: { label: string; value: number; id: string }[];
+      expenses: { label: string; value: number; id: string }[];
       networth: { date: Date; value: number }[];
-    } = { incomes: {}, expenses: {}, networth: [] };
+    } = { incomes: [], expenses: [], networth: [] };
 
     let networth = 0;
+    const sumMap: {
+      incomes: Record<string, number>;
+      expenses: Record<string, number>;
+    } = {
+      incomes: {},
+      expenses: {},
+    };
     for (const tx of txArray) {
       if (tx.type === "income") {
-        props.incomes[tx.category] =
-          (props.incomes[tx.category] || 0) + tx.value;
+        sumMap.incomes[tx.category] =
+          (sumMap.incomes[tx.category] || 0) + tx.value;
       } else {
-        props.expenses[tx.category] =
-          (props.expenses[tx.category] || 0) + tx.value;
+        sumMap.expenses[tx.category] =
+          (sumMap.expenses[tx.category] || 0) + tx.value;
       }
       networth += tx.type === "income" ? tx.value : -tx.value;
       props.networth.push({ date: new Date(tx.timestamp), value: networth });
     }
+    props.incomes = Object.entries(sumMap.incomes).map(
+      ([category, value], index) => ({
+        id: index.toString(),
+        label: category,
+        value,
+      })
+    );
+    props.expenses = Object.entries(sumMap.expenses).map(
+      ([category, value], index) => ({
+        id: index.toString(),
+        label: category,
+        value,
+      })
+    );
+
     return props;
   }, [txArray]);
 
-  if (!txArray.length) return;
+  if (txArray.length <= 1) return;
   return (
     <div>
-      {txArray.length > 1 && <NetworthChart networth={props.networth} />}
+      <NetworthChart networth={props.networth} />
+      <div>
+        <PieChart data={props.incomes} title="Доходы" />
+        <PieChart data={props.expenses} title="Расходы" />
+      </div>
     </div>
   );
 };

@@ -38,44 +38,57 @@ const Chart = ({ networth }: { networth: { date: Date; value: number }[] }) => {
     });
 
   return (
-    <LineChart
-      height={500}
-      dataset={networth}
-      series={[
-        { dataKey: "value", area: true, color: "black", curve: "stepAfter" },
-      ]}
-      axisHighlight={{
-        y: "line",
-        x: "line",
-      }}
-      xAxis={[
-        {
-          dataKey: "date",
-          scaleType: "time",
-          valueFormatter: dateFormatter,
-        },
-      ]}
-      yAxis={[
-        {
-          valueFormatter: (value: number) =>
-            value.toLocaleString("default", {
-              style: "currency",
-              currency: "RUB",
-            }),
-        },
-      ]}
-      margin={{
-        left: 100,
-      }}
-      sx={{
-        "& .MuiAreaElement-root": {
-          fill: "url(#switch-color)",
-        },
-      }}
-    >
-      <ColorSwich />
-      {/* <rect x={0} y={0} width={5} height="100%" fill="url(#swich-color-id-1)" /> */}
-    </LineChart>
+    <div>
+      <h3>Прибыль</h3>
+      <LineChart
+        height={500}
+        dataset={networth}
+        series={[
+          {
+            dataKey: "value",
+            area: true,
+            color: "black",
+            curve: "stepAfter",
+            valueFormatter: (value: number) =>
+              value.toLocaleString("default", {
+                style: "currency",
+                currency: "RUB",
+              }),
+          },
+        ]}
+        axisHighlight={{
+          y: "line",
+          x: "line",
+        }}
+        xAxis={[
+          {
+            dataKey: "date",
+            scaleType: "time",
+            valueFormatter: dateFormatter,
+          },
+        ]}
+        yAxis={[
+          {
+            valueFormatter: (value: number) =>
+              value.toLocaleString("default", {
+                style: "currency",
+                currency: "RUB",
+              }),
+          },
+        ]}
+        topAxis={{ label: "Networth" }}
+        margin={{
+          left: 100,
+        }}
+        sx={{
+          "& .MuiAreaElement-root": {
+            fill: "url(#switch-color)",
+          },
+        }}
+      >
+        <ColorSwich />
+      </LineChart>
+    </div>
   );
 };
 
