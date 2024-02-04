@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setRange } from "../../store/dateRangeSlice";
+import "./range-input.scss";
 
 const RangeInputForm = () => {
   const { start, end } = useAppSelector((state) => state.dateRange);
@@ -27,7 +28,7 @@ const RangeInputForm = () => {
   };
 
   return (
-    <form>
+    <form className="range-form">
       <input
         type="date"
         defaultValue={getDateString(start)}
@@ -35,8 +36,9 @@ const RangeInputForm = () => {
         onClick={(e) => {
           (e.target as HTMLInputElement).showPicker();
         }}
+        className="range-form__input"
       />
-      -
+      <hr />
       <input
         type="date"
         defaultValue={getDateString(end)}
@@ -44,6 +46,7 @@ const RangeInputForm = () => {
         onClick={(e) => {
           (e.target as HTMLInputElement).showPicker();
         }}
+        className="range-form__input"
       />
     </form>
   );

@@ -1,6 +1,4 @@
 .add-container {
-  // overflow: hidden;
-
   &__open-button {
     border-radius: 50%;
     box-sizing: border-box;
@@ -11,6 +9,7 @@
     height: 70px;
     padding: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    z-index: 1;
 
     svg {
       fill: white;
@@ -38,7 +37,7 @@
     width: 600px;
     animation: show-up 1s;
     margin: 100px auto 0 auto;
-    border: 1px solid lightgrey;
+    border: 1px solid var(--border-color);
     box-shadow: var(--theme-shadow);
     border-radius: 10px;
     animation: show-up 0.3s ease;
@@ -69,7 +68,7 @@
         width: 100%;
         height: 30px;
         border-radius: 5px;
-        border: 1px lightgrey solid;
+        border: 1px var(--border-color) solid;
         font-size: 1rem;
       }
 
@@ -90,6 +89,7 @@
         font-size: 1.1rem;
         width: max-content;
         margin: auto;
+        user-select: none;
 
         label {
           border: 1px solid grey;

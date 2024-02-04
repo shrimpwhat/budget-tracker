@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useAppSelector } from "../../store/hooks";
-import RangeInputForm from "./RangeInputForm";
 import "./overview.scss";
 import Card from "./Card";
 
@@ -41,7 +40,6 @@ const Overview = () => {
 
   return (
     <div className="overview">
-      <RangeInputForm />
       <div className="overview__content">
         <Card type="income" content={income} />
         <Card type="expense" content={expense} />

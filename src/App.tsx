@@ -3,10 +3,12 @@ import "./App.scss";
 import Overview from "./Components/Overview/Overview";
 import Table from "./Components/Table/Table";
 import Charts from "./Components/Charts/Container";
+import RangeInputForm from "./Components/RangeInput/RangeInputForm";
 
 function App() {
   return (
     <div className="App">
+      <RangeInputForm />
       <AddButton />
       <Overview />
       <Table />
