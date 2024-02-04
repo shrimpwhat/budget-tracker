@@ -39,7 +39,7 @@ const Chart = ({ networth }: { networth: { date: Date; value: number }[] }) => {
 
   return (
     <div>
-      <h3>Прибыль</h3>
+      <h3 className="chart__title">Прибыль</h3>
       <LineChart
         height={500}
         dataset={networth}

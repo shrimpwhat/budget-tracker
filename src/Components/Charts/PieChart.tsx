@@ -1,4 +1,4 @@
-import { PieChart, ChartsXAxis } from "@mui/x-charts";
+import { PieChart } from "@mui/x-charts";
 
 const Chart = ({
   data,
@@ -9,7 +9,7 @@ const Chart = ({
 }) => {
   return (
     <div>
-      <h3>{title}</h3>
+      <h3 className="chart__title">{title}</h3>
       <PieChart
         series={[
           {

@@ -128,7 +128,9 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
             </label>
             <input className="form__input" id="note-input" ref={txNote} />
           </div>
-          <button type="submit">Сохранить</button>
+          <button type="submit" className="btn-primary">
+            Сохранить
+          </button>
         </form>
       </div>
     </div>

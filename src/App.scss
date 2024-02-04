@@ -8,6 +8,17 @@
 button {
   all: unset;
   cursor: pointer;
+
+  &.btn-primary {
+    background-color: rgb(20, 90, 253);
+    transition: all 0.3s;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: darken($color: rgb(20, 90, 253), $amount: 10);
+      }
+    }
+  }
 }
 
 .App {

@@ -2,6 +2,7 @@ import { useAppSelector } from "../../store/hooks";
 import { useMemo } from "react";
 import NetworthChart from "./NetworthChart";
 import PieChart from "./PieChart";
+import "./charts.scss";
 
 const Charts = () => {
   const transactions = useAppSelector((state) => state.tx.transactions);

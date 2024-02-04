@@ -1,17 +1,19 @@
 .add-container {
-  overflow: hidden;
+  // overflow: hidden;
 
   &__open-button {
-    border: 2px solid black;
-    font-weight: 500;
-    font-size: 1.3rem;
-    padding: 10px;
-    border-radius: 5px;
-    transition: 0.3s;
+    border-radius: 50%;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 
-    &:hover {
-      color: white;
-      background: rgb(60, 60, 60);
+    svg {
+      fill: white;
     }
   }
 }
@@ -23,11 +25,11 @@
   }
 
   &__overlay {
-    position: absolute;
+    position: fixed;
     inset: 0;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    // overflow: hidden;
     z-index: 1;
   }
 
@@ -79,7 +81,6 @@
         margin: auto;
         padding: 10px;
         width: max-content;
-        background-color: rgb(20, 90, 253);
         color: white;
         border-radius: 5px;
         font-size: 1.2rem;
