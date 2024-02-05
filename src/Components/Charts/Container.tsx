@@ -62,8 +62,12 @@ const Charts = () => {
     <div>
       <NetworthChart networth={props.networth} />
       <div>
-        <PieChart data={props.incomes} title="Доходы" />
-        <PieChart data={props.expenses} title="Расходы" />
+        {props.incomes.length > 1 && (
+          <PieChart data={props.incomes} title="Доходы" />
+        )}
+        {props.expenses.length > 1 && (
+          <PieChart data={props.expenses} title="Расходы" />
+        )}
       </div>
     </div>
   );

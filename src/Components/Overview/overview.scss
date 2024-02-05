@@ -1,14 +1,18 @@
 .overview {
-  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+  }
 
   form {
     width: max-content;
     margin: auto;
-  }
-
-  &__content {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
   }
 }

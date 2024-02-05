@@ -60,9 +60,23 @@ export default function Table() {
   const columns: GridColDef[] = useMemo(
     () => [
       {
+        field: "delete",
+        type: "actions",
+        cellClassName: "table__delete-cell",
+        getActions: ({ id }) => {
+          return [
+            <GridActionsCellItem
+              icon={<DeleteIcon className="table__delete-icon" />}
+              label="Удалить"
+              onClick={() => handleDelete(Number(id))}
+            />,
+          ];
+        },
+        width: 50,
+      },
+      {
         field: "type",
         headerName: "Тип",
-        flex: 0.5,
         type: "singleSelect",
         editable: true,
         valueOptions: [
@@ -86,7 +100,8 @@ export default function Table() {
       {
         field: "category",
         headerName: "Категория",
-        flex: 0.7,
+        flex: 0.6,
+        minWidth: 170,
         type: "singleSelect",
         valueOptions: categories,
         editable: true,
@@ -95,6 +110,7 @@ export default function Table() {
         field: "value",
         headerName: "Сумма",
         flex: 0.6,
+        minWidth: 170,
         type: "number",
         valueFormatter: ({ value }: { value: number }) => CurrencyString(value),
         headerAlign: "left",
@@ -112,6 +128,7 @@ export default function Table() {
         field: "timestamp",
         headerName: "Дата",
         flex: 0.4,
+        minWidth: 130,
         type: "date",
         valueGetter: ({ value }: { value: number }) => new Date(value),
         valueSetter: (params: GridValueSetterParams) => {
@@ -130,6 +147,7 @@ export default function Table() {
       {
         field: "note",
         headerName: "Описание",
+        minWidth: 200,
         flex: 1,
         editable: true,
 
@@ -146,20 +164,6 @@ export default function Table() {
             </p>
           </Tooltip>
         ),
-      },
-      {
-        field: "delete",
-        type: "actions",
-        cellClassName: "table__delete-cell",
-        getActions: ({ id }) => {
-          return [
-            <GridActionsCellItem
-              icon={<DeleteIcon className="table__delete-icon" />}
-              label="Удалить"
-              onClick={() => handleDelete(Number(id))}
-            />,
-          ];
-        },
       },
     ],
     [categories, handleDelete]
@@ -189,7 +193,13 @@ export default function Table() {
         disableRowSelectionOnClick
         processRowUpdate={handleRowUpdate}
         onProcessRowUpdateError={(error) => console.error(error)}
+        sx={{
+          height: "423px",
+        }}
       />
+      <p className="table__description">
+        Чтобы отредактировать значение, нажмите на ячейку два раза
+      </p>
     </div>
   );
 }

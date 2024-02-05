@@ -40,10 +40,8 @@ const Overview = () => {
 
   return (
     <div className="overview">
-      <div className="overview__content">
-        <Card type="income" content={income} />
-        <Card type="expense" content={expense} />
-      </div>
+      <Card type="income" content={income} />
+      <Card type="expense" content={expense} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { PieChart } from "@mui/x-charts";
+import { PieChart, cheerfulFiestaPalette } from "@mui/x-charts";
 
 const Chart = ({
   data,
@@ -20,6 +20,7 @@ const Chart = ({
           },
         ]}
         height={300}
+        colors={cheerfulFiestaPalette}
       />
     </div>
   );
