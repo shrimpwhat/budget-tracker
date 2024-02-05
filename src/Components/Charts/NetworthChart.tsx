@@ -38,8 +38,8 @@ const Chart = ({ networth }: { networth: { date: Date; value: number }[] }) => {
     });
 
   return (
-    <div>
-      <h3 className="chart__title">Прибыль</h3>
+    <div className="chart networth-chart">
+      <h3 className="chart-title">Прибыль</h3>
       <LineChart
         height={500}
         dataset={networth}
@@ -76,7 +76,6 @@ const Chart = ({ networth }: { networth: { date: Date; value: number }[] }) => {
               }),
           },
         ]}
-        topAxis={{ label: "Networth" }}
         margin={{
           left: 100,
         }}

@@ -59,17 +59,19 @@ const Charts = () => {
 
   if (txArray.length <= 1) return;
   return (
-    <div>
-      <NetworthChart networth={props.networth} />
+    <section>
       <div>
-        {props.incomes.length > 1 && (
-          <PieChart data={props.incomes} title="Доходы" />
-        )}
-        {props.expenses.length > 1 && (
-          <PieChart data={props.expenses} title="Расходы" />
-        )}
+        <div className="pie-charts">
+          {props.incomes.length > 1 && (
+            <PieChart data={props.incomes} title="Доходы" />
+          )}
+          {props.expenses.length > 1 && (
+            <PieChart data={props.expenses} title="Расходы" />
+          )}
+        </div>
+        <NetworthChart networth={props.networth} />
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -39,10 +39,12 @@ const Overview = () => {
   }, [transactions]);
 
   return (
-    <div className="overview">
-      <Card type="income" content={income} />
-      <Card type="expense" content={expense} />
-    </div>
+    <section>
+      <div className="overview">
+        <Card type="income" content={income} />
+        <Card type="expense" content={expense} />
+      </div>
+    </section>
   );
 };
 

@@ -179,27 +179,29 @@ export default function Table() {
   }, [transactions]);
 
   return (
-    <div className="table">
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-        sortingOrder={["desc", "asc"]}
-        initialState={{
-          sorting: {
-            sortModel: [{ field: "timestamp", sort: "desc" }],
-          },
-        }}
-        disableRowSelectionOnClick
-        processRowUpdate={handleRowUpdate}
-        onProcessRowUpdateError={(error) => console.error(error)}
-        sx={{
-          height: "423px",
-        }}
-      />
-      <p className="table__description">
-        Чтобы отредактировать значение, нажмите на ячейку два раза
-      </p>
-    </div>
+    <section>
+      <div className="table">
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
+          sortingOrder={["desc", "asc"]}
+          initialState={{
+            sorting: {
+              sortModel: [{ field: "timestamp", sort: "desc" }],
+            },
+          }}
+          disableRowSelectionOnClick
+          processRowUpdate={handleRowUpdate}
+          onProcessRowUpdateError={(error) => console.error(error)}
+          sx={{
+            height: "423px",
+          }}
+        />
+        <p className="table__description">
+          Чтобы отредактировать значение, нажмите на ячейку два раза
+        </p>
+      </div>
+    </section>
   );
 }

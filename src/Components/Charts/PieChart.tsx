@@ -8,19 +8,33 @@ const Chart = ({
   title: string;
 }) => {
   return (
-    <div>
+    <div className="chart">
       <h3 className="chart__title">{title}</h3>
       <PieChart
         series={[
           {
             data: data,
-            innerRadius: 70,
+            innerRadius: 80,
+            outerRadius: 140,
+
             cornerRadius: 5,
             highlightScope: { highlighted: "item", faded: "global" },
           },
         ]}
-        height={300}
         colors={cheerfulFiestaPalette}
+        slotProps={{
+          legend: {
+            direction: "row",
+            position: { vertical: "top", horizontal: "middle" },
+          },
+        }}
+        margin={{
+          top: 150,
+          right: 0,
+        }}
+        // width={matches ? 300 : undefined}
+
+        height={500}
       />
     </div>
   );
