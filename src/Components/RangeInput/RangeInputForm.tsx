@@ -33,9 +33,6 @@ const RangeInputForm = () => {
         type="date"
         defaultValue={getDateString(start)}
         onChange={(e) => handleDateChange(e, "start")}
-        onClick={(e) => {
-          (e.target as HTMLInputElement).showPicker();
-        }}
         className="range-form__input"
       />
       <hr />
@@ -43,9 +40,6 @@ const RangeInputForm = () => {
         type="date"
         defaultValue={getDateString(end)}
         onChange={(e) => handleDateChange(e, "end")}
-        onClick={(e) => {
-          (e.target as HTMLInputElement).showPicker();
-        }}
         className="range-form__input"
       />
     </form>

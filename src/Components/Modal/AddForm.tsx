@@ -117,9 +117,6 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               type="date"
               required
               ref={txDate}
-              onClick={(e) => {
-                (e.target as HTMLInputElement).showPicker();
-              }}
             />
           </div>
           <div>
