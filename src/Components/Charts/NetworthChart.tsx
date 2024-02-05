@@ -54,6 +54,7 @@ const Chart = ({ networth }: { networth: { date: Date; value: number }[] }) => {
                 style: "currency",
                 currency: "RUB",
               }),
+            showMark: false,
           },
         ]}
         axisHighlight={{

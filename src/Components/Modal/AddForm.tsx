@@ -55,7 +55,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
         </button>
 
         <form className="form" onSubmit={submit}>
-          <div className="type-container">
+          <div className="type-container form__item">
             <label>
               <input
                 type="radio"
@@ -77,7 +77,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               <span>Расходы</span>
             </label>
           </div>
-          <div>
+          <div className="form__item">
             <label htmlFor="category-input" className="form__label">
               Категория
             </label>
@@ -94,7 +94,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               ))}
             </datalist>
           </div>
-          <div>
+          <div className="form__item">
             <label htmlFor="value-input" className="form__label">
               Сумма
             </label>
@@ -107,7 +107,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               ref={txValue}
             />
           </div>
-          <div>
+          <div className="form__item">
             <label htmlFor="date-input" className="form__label">
               Дата
             </label>
@@ -119,7 +119,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               ref={txDate}
             />
           </div>
-          <div>
+          <div className="form__item">
             <label htmlFor="note-input" className="form__label">
               Комментарий
             </label>

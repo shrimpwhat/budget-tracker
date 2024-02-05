@@ -32,8 +32,6 @@ const Chart = ({
           top: 150,
           right: 0,
         }}
-        // width={matches ? 300 : undefined}
-
         height={500}
       />
     </div>

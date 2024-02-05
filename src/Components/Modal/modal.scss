@@ -28,19 +28,23 @@
     inset: 0;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1);
-    // overflow: hidden;
     z-index: 1;
   }
 
   &__content {
     background: white;
-    width: 600px;
     animation: show-up 1s;
-    margin: 100px auto 0 auto;
+    margin: 5vh auto 0 auto;
     border: 1px solid var(--border-color);
     box-shadow: var(--theme-shadow);
     border-radius: 10px;
     animation: show-up 0.3s ease;
+    max-width: 700px;
+
+    @media screen and (min-width: 768px) {
+      width: 90%;
+    }
+
     @keyframes show-up {
       from {
         transform: translateY(100vh);
@@ -53,11 +57,21 @@
 
     .form {
       display: flex;
-      width: 350px;
+      width: 100%;
       flex-direction: column;
-      gap: 40px;
-      padding: 40px;
+      gap: 30px;
+      padding: 40px 20px;
       margin: auto;
+      box-sizing: border-box;
+      align-items: center;
+      max-width: 450px;
+      @media screen and (min-width: 768px) {
+        gap: 40px;
+      }
+
+      &__item {
+        width: 100%;
+      }
 
       &__label {
         display: block;
@@ -87,7 +101,7 @@
 
       .type-container {
         font-size: 1.1rem;
-        width: max-content;
+        width: fit-content;
         margin: auto;
         user-select: none;
 

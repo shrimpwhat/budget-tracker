@@ -100,7 +100,7 @@ export default function Table() {
       {
         field: "category",
         headerName: "Категория",
-        flex: 0.6,
+        flex: 0.7,
         minWidth: 170,
         type: "singleSelect",
         valueOptions: categories,
@@ -198,7 +198,7 @@ export default function Table() {
             height: "423px",
           }}
         />
-        <p className="table__description">
+        <p className="section-description">
           Чтобы отредактировать значение, нажмите на ячейку два раза
         </p>
       </div>
