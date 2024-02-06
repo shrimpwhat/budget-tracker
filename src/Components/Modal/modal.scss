@@ -19,8 +19,11 @@
 
 .modal {
   &__close-icon {
-    width: 25px;
-    margin: 10px 10px 0 0;
+    position: absolute;
+    width: 30px;
+    top: 0;
+    right: 0;
+    margin: 10px 15px 0 0;
   }
 
   &__overlay {
@@ -32,6 +35,7 @@
   }
 
   &__content {
+    position: relative;
     background: white;
     animation: show-up 1s;
     margin: 5vh auto 0 auto;
