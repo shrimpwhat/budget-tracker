@@ -28,7 +28,7 @@ export const loadRange = createAsyncThunk<
   undefined,
   { state: RootState }
 >("tx/loadRange", async (_, thunkApi) => {
-  const dbTransaction = db.transaction("transactions");
+  const dbTransaction = await db.then((db) => db.transaction("transactions"));
   const txs: Record<number, Tx> = {};
   const { start, end } = thunkApi.getState().dateRange;
   const categories: Record<string, number> = {};

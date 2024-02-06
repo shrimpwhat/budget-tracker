@@ -22,7 +22,7 @@ const Card = ({ type, content }: ICardProps) => {
   return (
     <div className={"card " + type}>
       <h1 className="card__title">
-        {type === "income" ? "Доходы" : "Расходы"}
+        {type === "income" ? "ДоходыЫ" : "Расходы"}
         {": "}
         <span className="card__title-sum">{CurrencyString(content.sum)}</span>
       </h1>

@@ -75,7 +75,7 @@ export const postTx = createAsyncThunk<
   Tx,
   { state: RootState }
 >("tx/postTx", async (tx) => {
-  const id = await db.put("transactions", tx);
+  const id = await db.then((db) => db.put("transactions", tx));
   return { id, tx };
 });
 
@@ -87,7 +87,7 @@ export const updateTx = createAsyncThunk<
   },
   { dispatch: AppDispatch }
 >("tx/updateTx", async ({ id, newTx }, { dispatch }) => {
-  await db.put("transactions", newTx, id);
+  await db.then((db) => db.put("transactions", newTx, id));
   dispatch(editTx({ id, newTx }));
 });
 
@@ -96,7 +96,7 @@ export const deleteTx = createAsyncThunk<
   number,
   { dispatch: AppDispatch }
 >("tx/deleteTx", async (id, { dispatch }) => {
-  await db.delete("transactions", id);
+  await db.then((db) => db.delete("transactions", id));
   dispatch(removeTx(id));
 });
 

@@ -7,7 +7,7 @@ interface AppDB extends DBSchema {
   };
 }
 
-const db = await openDB<AppDB>("budget-db", 1, {
+const db = openDB<AppDB>("budget-db", 1, {
   upgrade(db) {
     db.createObjectStore("transactions", {
       autoIncrement: true,
