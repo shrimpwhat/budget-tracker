@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import CancelIcon from "../../assets/Cancel.svg?react";
+import CloseIcon from "@mui/icons-material/Close";
 import { postTx, selectCategories } from "../../store/txSlice";
 
 const AddForm = ({ closeModal }: { closeModal: () => void }) => {
@@ -51,7 +51,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
     <div className="modal__overlay" onClick={closeModal}>
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <button onClick={closeModal} style={{ float: "right" }}>
-          <CancelIcon className="modal__close-icon" />
+          <CloseIcon className="modal__close-icon" />
         </button>
 
         <form className="form" onSubmit={submit}>

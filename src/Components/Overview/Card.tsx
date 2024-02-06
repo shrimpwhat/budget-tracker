@@ -1,6 +1,6 @@
 import "./card.scss";
-import ArrowUpIcon from "../../assets/ArrowUp.svg?react";
-import ArrowDownIcon from "../../assets/ArrowDown.svg?react";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import { CurrencyString } from "../../utils";
 
 interface ICardProps {
@@ -22,15 +22,13 @@ const Card = ({ type, content }: ICardProps) => {
   return (
     <div className={"card " + type}>
       <h1 className="card__title">
-        {type === "income" ? "ДоходыЫ" : "Расходы"}
+        {type === "income" ? "Доходы" : "Расходы"}
         {": "}
         <span className="card__title-sum">{CurrencyString(content.sum)}</span>
       </h1>
       <ul className="card__content">
         <li className="list-item">
-          <div className="list-item__icon">
-            <ArrowUpIcon />
-          </div>
+          <ArrowUpwardIcon className="list-item__icon" />
           <p className="list-item__subtitle">Максимум</p>
           <p className="list-item__description">
             {content.max.category}
@@ -45,9 +43,7 @@ const Card = ({ type, content }: ICardProps) => {
           </p>
         </li>
         <li className="list-item">
-          <div className="list-item__icon">
-            <ArrowDownIcon />
-          </div>
+          <ArrowDownwardIcon className="list-item__icon" />
           <p className="list-item__subtitle">Минимум</p>
           <p className="list-item__description">
             {content.min.category}

@@ -16,7 +16,7 @@ import "./table.scss";
 import { Tooltip } from "@mui/material";
 import { CurrencyString } from "../../utils";
 import { deleteTx, selectCategories, updateTx } from "../../store/txSlice";
-import DeleteIcon from "../../assets/Delete.svg?react";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Table() {
   const transactions = useAppSelector((state) => state.tx.transactions);

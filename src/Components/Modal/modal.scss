@@ -7,12 +7,14 @@
     right: 20px;
     width: 70px;
     height: 70px;
-    padding: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     z-index: 1;
+    text-align: center;
 
     svg {
-      fill: white;
+      font-size: 3.5rem !important;
+      fill: white !important;
+      vertical-align: middle;
     }
   }
 }
@@ -20,10 +22,10 @@
 .modal {
   &__close-icon {
     position: absolute;
-    width: 30px;
     top: 0;
     right: 0;
-    margin: 10px 15px 0 0;
+    font-size: 2.5rem !important;
+    fill: #adadad !important;
   }
 
   &__overlay {

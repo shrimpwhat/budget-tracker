@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AddForm from "./AddForm";
 import "./modal.scss";
-import PlusIcon from "../../assets/Plus.svg?react";
+import AddIcon from "@mui/icons-material/Add";
 
 const AddButton = () => {
   const [opened, setOpened] = useState(false);
@@ -11,7 +11,7 @@ const AddButton = () => {
         onClick={() => setOpened(true)}
         className="add-container__open-button btn-primary"
       >
-        <PlusIcon />
+        <AddIcon />
       </button>
       {opened && (
         <div className="modal">
