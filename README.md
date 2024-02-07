@@ -21,18 +21,17 @@
 ![image](https://github.com/shrimpwhat/budget-tracker/assets/49585211/7107b4c9-3d8c-4980-8664-6a8da7741ad0)
 После установки приложение появится на главном экране и будет работать как системное.
 
-## Стэк
+## Технологии
 
 - TypeScript
 - React
+- Vite
 - Redux
 - SCSS
-- Vite
 
 ## Запуск
 
 ```
-1. Склонировать репозиторий
-2. npm install
-3. npm run dev
+1. npm install
+2. npm run dev
 ```
