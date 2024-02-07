@@ -1,27 +1,29 @@
-# React + TypeScript + Vite
+# Приложение для анализа бюджета
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание
 
-Currently, two official plugins are available:
+Приложение для анализа бюджета предоставляет пользователю возможность удобно отслеживать свои доходы и расходы, а также анализировать их по категориям. Пользователь может добавлять, изменять и удалять записи о доходах и расходах в определённый день. Приложение автоматически строит обзор с максимальной и минимальной категорией для доходов и расходов, отображает таблицу со всеми записями и генерирует графики для наглядного представления данных. Также пользователь может ограничить временной период для анализа, убрав при этом доходы и расходы вне этого периода.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Serverless
 
-## Expanding the ESLint configuration
+Все данные пользователя сохраняются локально в **IndexedDB**. Это позволяет обойтись без сервера с БД, гарантирует пользователю конфиденциальность его данных, и даёт вохможность работы приложения **офлайн**.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## PWA
 
-- Configure the top-level `parserOptions` property like this:
+Данное приложение является [**PWA**](https://web.dev/explore/progressive-web-apps). Блягодаря Service Worker, который кэширует статические файлы, приложение может быть установлено на устройство прямо из браузера как обычное десктопное или мобильное, а также работать офлайн. Установка приложения возможна парктически на любое устройство с Windows, Linux, MacOS, Android, iOS (Desktop версии Safari и Firefox пока не поддерживают данную функцию).
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## Стэк
+
+- TypeScript
+- React
+- Redux
+- SCSS
+- Vite
+
+## Установка
+
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Склонировать репозиторий
+2. npm install
+3. npm run dev
+```

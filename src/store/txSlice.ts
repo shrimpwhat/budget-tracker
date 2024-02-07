@@ -8,14 +8,51 @@ import db from "./db";
 import { AppDispatch, RootState } from "./store";
 import { loadRange } from "./dateRangeSlice";
 
+type Statistics = {
+  sum: number;
+  categories: { label: string; value: number; id: string }[];
+  max: { value: number; category: string };
+  min: { value: number; category: string };
+};
+
+export type TransactionStats = {
+  incomes: Statistics;
+  expenses: Statistics;
+  networth: { timestamp: number; value: number }[];
+};
+
 export type TxState = {
   transactions: Record<number, Tx>;
   categories: Record<string, number>;
+  stats: TransactionStats;
+};
+
+type TxPayloadWithID = {
+  id: number;
+  tx: Tx;
+};
+
+export const emptyCategory = "Нет данных";
+const initalStats: TransactionStats = {
+  incomes: {
+    sum: 0,
+    categories: [],
+    max: { value: 0, category: emptyCategory },
+    min: { value: Infinity, category: emptyCategory },
+  },
+  expenses: {
+    sum: 0,
+    categories: [],
+    max: { value: 0, category: emptyCategory },
+    min: { value: Infinity, category: emptyCategory },
+  },
+  networth: [],
 };
 
 const initialState: TxState = {
   transactions: {},
   categories: {},
+  stats: initalStats,
 };
 
 const incrementCategory = (state: TxState, category: string) => {
@@ -31,14 +68,12 @@ export const txSlice = createSlice({
   name: "tx",
   initialState,
   reducers: {
-    editTx: (
-      state,
-      action: PayloadAction<{
-        id: number;
-        newTx: Tx;
-      }>
-    ) => {
-      const { id, newTx } = action.payload;
+    addTx: (state, action: PayloadAction<TxPayloadWithID>) => {
+      state.transactions[action.payload.id] = action.payload.tx;
+      incrementCategory(state, action.payload.tx.category);
+    },
+    editTx: (state, action: PayloadAction<TxPayloadWithID>) => {
+      const { id, tx: newTx } = action.payload;
       const oldTx = state.transactions[id];
 
       if (oldTx.category !== newTx.category) {
@@ -53,6 +88,9 @@ export const txSlice = createSlice({
       decrementCategory(state, tx.category);
       delete state.transactions[action.payload];
     },
+    updateStats: (state, action: PayloadAction<TransactionStats>) => {
+      state.stats = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -61,34 +99,24 @@ export const txSlice = createSlice({
       state.transactions = action.payload.transactions;
       state.categories = action.payload.categories;
     });
-
-    // Add tx
-    builder.addCase(postTx.fulfilled, (state, action) => {
-      state.transactions[action.payload.id] = action.payload.tx;
-      incrementCategory(state, action.payload.tx.category);
-    });
   },
 });
 
-export const postTx = createAsyncThunk<
-  { id: number; tx: Tx },
-  Tx,
-  { state: RootState }
->("tx/postTx", async (tx) => {
-  const id = await db.then((db) => db.put("transactions", tx));
-  return { id, tx };
-});
+export const postTx = createAsyncThunk<void, Tx, { dispatch: AppDispatch }>(
+  "tx/postTx",
+  async (tx, { dispatch }) => {
+    const id = await db.then((db) => db.put("transactions", tx));
+    dispatch(addTx({ id, tx }));
+  }
+);
 
 export const updateTx = createAsyncThunk<
   void,
-  {
-    id: number;
-    newTx: Tx;
-  },
+  TxPayloadWithID,
   { dispatch: AppDispatch }
->("tx/updateTx", async ({ id, newTx }, { dispatch }) => {
-  await db.then((db) => db.put("transactions", newTx, id));
-  dispatch(editTx({ id, newTx }));
+>("tx/updateTx", async ({ id, tx }, { dispatch }) => {
+  await db.then((db) => db.put("transactions", tx, id));
+  dispatch(editTx({ id, tx }));
 });
 
 export const deleteTx = createAsyncThunk<
@@ -105,5 +133,5 @@ export const selectCategories = createSelector(
   (categories) => Object.keys(categories)
 );
 
-export const { editTx, removeTx } = txSlice.actions;
+export const { addTx, editTx, removeTx, updateStats } = txSlice.actions;
 export default txSlice.reducer;

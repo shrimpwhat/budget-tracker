@@ -37,7 +37,7 @@ export default function Table() {
       dispatch(
         updateTx({
           id: Number(updated.id),
-          newTx: {
+          tx: {
             type: updated.type,
             category: updated.category,
             value: updated.value,

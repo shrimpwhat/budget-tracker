@@ -29,9 +29,13 @@ function ColorSwich() {
   );
 }
 
-const Chart = ({ networth }: { networth: { date: Date; value: number }[] }) => {
-  const dateFormatter = (date: Date) =>
-    date.toLocaleDateString("default", {
+const Chart = ({
+  networth,
+}: {
+  networth: { timestamp: number; value: number }[];
+}) => {
+  const dateFormatter = (date: number) =>
+    new Date(date).toLocaleDateString("default", {
       year: "2-digit",
       month: "numeric",
       day: "numeric",
@@ -63,7 +67,7 @@ const Chart = ({ networth }: { networth: { date: Date; value: number }[] }) => {
         }}
         xAxis={[
           {
-            dataKey: "date",
+            dataKey: "timestamp",
             scaleType: "time",
             valueFormatter: dateFormatter,
           },

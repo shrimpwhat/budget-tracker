@@ -14,7 +14,7 @@ const Chart = ({
         series={[
           {
             data: data,
-            innerRadius: 80,
+            innerRadius: 60,
             outerRadius: 140,
 
             cornerRadius: 5,
