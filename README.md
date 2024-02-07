@@ -1,11 +1,7 @@
 # Приложение для анализа бюджета
+
 ![image](https://github.com/shrimpwhat/budget-tracker/assets/49585211/6673873b-dcb7-48ae-9d5b-c7af3ca18069)
 ![screenshot2](https://github.com/shrimpwhat/budget-tracker/assets/49585211/4b413cce-dde1-4e9e-8a7c-c108366da14e)
-
-
-
-
-
 
 ## Описание
 
@@ -19,6 +15,12 @@
 
 Данное приложение является [**PWA**](https://web.dev/explore/progressive-web-apps). Блягодаря Service Worker, который кэширует статические файлы, приложение может быть установлено на устройство прямо из браузера как обычное десктопное или мобильное, а также работать офлайн. Установка приложения возможна парктически на любое устройство с Windows, Linux, MacOS, Android, iOS (Desktop версии Safari и Firefox пока не поддерживают данную функцию).
 
+![image](https://github.com/shrimpwhat/budget-tracker/assets/49585211/e0daa1f9-8486-40bc-b8de-7c6ef1b62421)
+
+Или из меню (три точки в правом верхнем углу)
+![image](https://github.com/shrimpwhat/budget-tracker/assets/49585211/7107b4c9-3d8c-4980-8664-6a8da7741ad0)
+После установки приложение появится на главном экране и будет работать как системное.
+
 ## Стэк
 
 - TypeScript
@@ -27,7 +29,7 @@
 - SCSS
 - Vite
 
-## Установка
+## Запуск
 
 ```
 1. Склонировать репозиторий
