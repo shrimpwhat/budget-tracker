@@ -27,7 +27,7 @@
 - React
 - Vite
 - Redux
-- SCSS
+- SASS
 
 ## Запуск
 1. `npm install`
