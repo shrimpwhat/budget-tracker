@@ -1,19 +1,24 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import txReducer from "./txSlice";
 import dateRangeSlice, { loadRange } from "./dateRangeSlice";
 import { listenerMiddleware } from "./middleware";
 
-export const store = configureStore({
-  reducer: {
-    tx: txReducer,
-    dateRange: dateRangeSlice,
-  },
-
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(listenerMiddleware.middleware),
+const rootReducer = combineReducers({
+  tx: txReducer,
+  dateRange: dateRangeSlice,
 });
 
-store.dispatch(loadRange());
+export const setupStore = (preloadedState?: Partial<RootState>) => {
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().prepend(listenerMiddleware.middleware),
+    preloadedState,
+  });
+  store.dispatch(loadRange());
+  return store;
+};
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];
