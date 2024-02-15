@@ -1,18 +1,18 @@
-import { describe, expect, test, vi } from "vitest";
-import { renderWithProviders } from "../../utils/test-utils";
+import { describe, expect, test } from "vitest";
+import { renderWithProviders } from "../../../tests/test-utils";
 import AddForm from "./AddForm";
 import { setupStore } from "../../store/store";
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, act } from "@testing-library/react";
 
 describe("Add form", () => {
   test("should add transaction to store", () => {
     const store = setupStore();
     const { getByLabelText, getByText } = renderWithProviders(
-      <AddForm closeModal={vi.fn()} />,
+      <AddForm closeModal={() => {}} />,
       { store }
     );
 
-    const dateString = "20-01-2024";
+    const dateString = "2024-01-20";
     const inputData = {
       type: "income",
       category: "Зарплата",
