@@ -4,8 +4,7 @@ import { cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 
 
-
-const localStorageMock = vi.fn(() => {
+const localStorageMock = vi.fn().mockImplementation(() => {
   const store: Record<string, string> = {};
   return {
     getItem: (key: string) => (key in store ? store[key] : null),

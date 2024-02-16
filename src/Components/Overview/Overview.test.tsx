@@ -38,10 +38,9 @@ describe("Overview", () => {
         note: "",
       },
     ];
-
-    const { container } = renderWithProviders(<Overview />);
-
     await Promise.all(txs.map((tx) => store.dispatch(postTx(tx))));
+
+    const { container } = renderWithProviders(<Overview />, { store });
 
     const incomeCard = container.querySelector(".income")!,
       expenseCard = container.querySelector(".expense")!;
