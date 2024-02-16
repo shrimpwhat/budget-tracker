@@ -2,12 +2,12 @@ import { describe, expect, test } from "vitest";
 import { renderWithProviders } from "../../../tests/test-utils";
 import AddForm from "./AddForm";
 import { setupStore } from "../../store/store";
-import { fireEvent, act } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 
 describe("Add form", () => {
-  test("should add transaction to store", () => {
+  test("should add transaction to store", async () => {
     const store = setupStore();
-    const { getByLabelText, getByText } = renderWithProviders(
+    const { getByLabelText, container } = renderWithProviders(
       <AddForm closeModal={() => {}} />,
       { store }
     );
@@ -33,9 +33,11 @@ describe("Add form", () => {
     const noteInput = getByLabelText("Комментарий") as HTMLInputElement;
     fireEvent.change(noteInput, { target: { value: inputData.note } });
 
-    fireEvent.click(getByText("Сохранить"));
+    fireEvent.submit(container.querySelector("form")!);
 
-    const tx = store.getState().tx.transactions[0];
-    expect(tx).toEqual(inputData);
+    await waitFor(() => {
+      const tx = store.getState().tx.transactions[1];
+      expect(tx).toEqual(inputData);
+    });
   });
 });
