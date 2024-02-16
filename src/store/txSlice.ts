@@ -71,7 +71,6 @@ export const txSlice = createSlice({
     addTx: (state, action: PayloadAction<TxPayloadWithID>) => {
       state.transactions[action.payload.id] = action.payload.tx;
       incrementCategory(state, action.payload.tx.category);
-      // console.log(123)
     },
     editTx: (state, action: PayloadAction<TxPayloadWithID>) => {
       const { id, tx: newTx } = action.payload;

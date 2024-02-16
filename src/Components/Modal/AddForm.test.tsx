@@ -1,4 +1,3 @@
-import { describe, expect, test } from "vitest";
 import { renderWithProviders } from "../../../tests/test-utils";
 import AddForm from "./AddForm";
 import { setupStore } from "../../store/store";
@@ -15,7 +14,7 @@ describe("Add form", () => {
     const dateString = "2024-01-20";
     const inputData = {
       type: "income",
-      category: "Зарплата",
+      category: "Salary",
       value: 1000,
       timestamp: new Date(dateString).getTime(),
       note: "Lorem ipsum",

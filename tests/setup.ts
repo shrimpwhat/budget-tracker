@@ -1,6 +1,9 @@
 import "fake-indexeddb/auto";
 import { vi, afterEach } from "vitest";
 import { cleanup } from "@testing-library/react";
+import "@testing-library/jest-dom/vitest";
+
+
 
 const localStorageMock = vi.fn(() => {
   const store: Record<string, string> = {};
