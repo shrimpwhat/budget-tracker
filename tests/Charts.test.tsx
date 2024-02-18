@@ -1,8 +1,8 @@
 import { act, waitFor } from "@testing-library/react";
-import Charts from "./Container";
-import { setupStore } from "../../store/store";
-import { renderWithProviders } from "../../../tests/test-utils";
-import { postTx } from "../../store/txSlice";
+import Charts from "../src/Components/Charts/Container";
+import { setupStore } from "../src/store/store";
+import { renderWithProviders } from "./test-utils";
+import { postTx } from "../src/store/txSlice";
 import { vi } from "vitest";
 
 interface LocalTestContext {
@@ -53,7 +53,7 @@ describe("Charts", () => {
     });
   });
 
-  beforeEach<LocalTestContext>(async (context) => {
+  beforeEach<LocalTestContext>((context) => {
     const store = setupStore();
     const { container } = renderWithProviders(<Charts />, { store });
     context.store = store;
@@ -111,7 +111,7 @@ describe("Charts", () => {
 
   test<LocalTestContext>("shouldn't render networth chart with less than 2 transactions", async (context) => {
     const { container, store } = context;
-    await store.dispatch(postTx(txs[0]));
+    await act(async () => await store.dispatch(postTx(txs[0])));
     waitFor(() => {
       expect(container.querySelector(".networth-chart")).toBeNull();
     });
@@ -119,7 +119,6 @@ describe("Charts", () => {
 
   test<LocalTestContext>("shouldn't render pie charts with less than 2 categories", async (context) => {
     const { container, store } = context;
-
     const similarTxs: Tx[] = [
       {
         category: "Freelance",
@@ -150,8 +149,10 @@ describe("Charts", () => {
         note: "",
       },
     ];
-
-    await Promise.all(similarTxs.map((tx) => store.dispatch(postTx(tx))));
+    await act(
+      async () =>
+        await Promise.all(similarTxs.map((tx) => store.dispatch(postTx(tx))))
+    );
 
     waitFor(() => {
       const pieCharts = container.querySelector(".pie-charts")!;

@@ -1,6 +1,6 @@
-import { renderWithProviders } from "../../../tests/test-utils";
-import AddForm from "./AddForm";
-import { setupStore } from "../../store/store";
+import { renderWithProviders } from "./test-utils";
+import AddForm from "../src/Components/Modal/AddForm";
+import { setupStore } from "../src/store/store";
 import { fireEvent, waitFor } from "@testing-library/react";
 
 describe("Add form", () => {

@@ -11,7 +11,7 @@ function App() {
       <RangeInputForm />
       <AddButton />
       <Overview />
-      <Table />
+      <Table disableVirtualization={false} />
       <Charts />
     </div>
   );

@@ -1,8 +1,8 @@
 import { fireEvent, waitFor } from "@testing-library/react";
-import RangeInputForm from "./RangeInputForm";
-import { setupStore } from "../../store/store";
-import { renderWithProviders } from "../../../tests/test-utils";
-import { postTx } from "../../store/txSlice";
+import RangeInputForm from "../src/Components/RangeInput/RangeInputForm";
+import { setupStore } from "../src/store/store";
+import { renderWithProviders } from "./test-utils";
+import { postTx } from "../src/store/txSlice";
 
 interface LocalTestContext {
   container: HTMLElement;

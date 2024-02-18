@@ -1,8 +1,8 @@
-import Overview from "./Overview";
-import { setupStore } from "../../store/store";
-import { renderWithProviders } from "../../../tests/test-utils";
-import { postTx } from "../../store/txSlice";
-import { CurrencyString } from "../../utils";
+import Overview from "../src/Components/Overview/Overview";
+import { setupStore } from "../src/store/store";
+import { renderWithProviders } from "./test-utils";
+import { postTx } from "../src/store/txSlice";
+import { CurrencyString } from "../src/utils";
 import { waitFor } from "@testing-library/react";
 
 describe("Overview", () => {

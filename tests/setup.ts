@@ -2,7 +2,7 @@ import "fake-indexeddb/auto";
 import { vi, afterEach } from "vitest";
 import { cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
-
+import db from "../src/store/db"
 
 const localStorageMock = vi.fn().mockImplementation(() => {
   const store: Record<string, string> = {};
@@ -14,7 +14,10 @@ const localStorageMock = vi.fn().mockImplementation(() => {
 
 vi.stubGlobal("window.localStorage", localStorageMock);
 
-afterEach(() => {
+afterEach(async () => {
   cleanup();
-  vi.restoreAllMocks();
+  const tx = (await db).transaction('transactions', 'readwrite')
+  const keys = await tx.store.getAllKeys()
+  keys.forEach(key => tx.store.delete(key))
+  await tx.done
 });
