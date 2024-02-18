@@ -18,7 +18,9 @@ import { CurrencyString } from "../../utils";
 import { deleteTx, selectCategories, updateTx } from "../../store/txSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function Table() {
+export default function Table(
+  { disableVirtualization } = { disableVirtualization: false }
+) {
   const transactions = useAppSelector((state) => state.tx.transactions);
   const categories = useAppSelector(selectCategories);
 
@@ -191,6 +193,7 @@ export default function Table() {
               sortModel: [{ field: "timestamp", sort: "desc" }],
             },
           }}
+          disableVirtualization={disableVirtualization}
           disableRowSelectionOnClick
           processRowUpdate={handleRowUpdate}
           onProcessRowUpdateError={(error) => console.error(error)}

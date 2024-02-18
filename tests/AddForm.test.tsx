@@ -1,21 +1,20 @@
-import { describe, expect, test, vi } from "vitest";
-import { renderWithProviders } from "../../utils/test-utils";
-import AddForm from "./AddForm";
-import { setupStore } from "../../store/store";
-import { fireEvent } from "@testing-library/react";
+import { renderWithProviders } from "./test-utils";
+import AddForm from "../src/Components/Modal/AddForm";
+import { setupStore } from "../src/store/store";
+import { fireEvent, waitFor } from "@testing-library/react";
 
 describe("Add form", () => {
-  test("should add transaction to store", () => {
+  test("should add transaction to store", async () => {
     const store = setupStore();
-    const { getByLabelText, getByText } = renderWithProviders(
-      <AddForm closeModal={vi.fn()} />,
+    const { getByLabelText, container } = renderWithProviders(
+      <AddForm closeModal={() => {}} />,
       { store }
     );
 
-    const dateString = "20-01-2024";
+    const dateString = "2024-01-20";
     const inputData = {
       type: "income",
-      category: "Зарплата",
+      category: "Salary",
       value: 1000,
       timestamp: new Date(dateString).getTime(),
       note: "Lorem ipsum",
@@ -33,9 +32,11 @@ describe("Add form", () => {
     const noteInput = getByLabelText("Комментарий") as HTMLInputElement;
     fireEvent.change(noteInput, { target: { value: inputData.note } });
 
-    fireEvent.click(getByText("Сохранить"));
+    fireEvent.submit(container.querySelector("form")!);
 
-    const tx = store.getState().tx.transactions[0];
-    expect(tx).toEqual(inputData);
+    await waitFor(() => {
+      const tx = store.getState().tx.transactions[1];
+      expect(tx).toEqual(inputData);
+    });
   });
 });

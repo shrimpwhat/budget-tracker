@@ -1,14 +1,9 @@
 import React, { PropsWithChildren } from "react";
-import { cleanup, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import type { RenderOptions } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { afterEach } from "vitest";
-import { setupStore } from "../store/store";
-import type { AppStore, RootState } from "../store/store";
-
-afterEach(() => {
-  cleanup();
-});
+import { setupStore } from "../src/store/store";
+import type { AppStore, RootState } from "../src/store/store";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: Partial<RootState>;

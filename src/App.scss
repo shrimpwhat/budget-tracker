@@ -1,5 +1,5 @@
 :root {
-  font-family: "Segoe UI";
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   --color-green: #079a80;
   --color-red: #f23645;
   --border-color: lightgrey;
@@ -38,6 +38,8 @@ button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  appearance: none;
 }
 
 input::-webkit-outer-spin-button,

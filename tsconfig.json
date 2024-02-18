@@ -20,6 +20,13 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "tests/Table.test.tsx",
+    "tests/RangeInputForm.test.tsx",
+    "tests/Charts.test.tsx",
+    "tests/AddForm.test.tsx",
+    "tests/Overview.test.tsx"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
