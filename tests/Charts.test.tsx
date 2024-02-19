@@ -1,5 +1,5 @@
 import { act, waitFor } from "@testing-library/react";
-import Charts from "../src/Components/Charts/Container";
+import Charts from "../src/Components/Charts";
 import { setupStore } from "../src/store/store";
 import { renderWithProviders } from "./test-utils";
 import { postTx } from "../src/store/txSlice";

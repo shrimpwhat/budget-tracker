@@ -1,5 +1,5 @@
 import { fireEvent, waitFor } from "@testing-library/react";
-import RangeInputForm from "../src/Components/RangeInput/RangeInputForm";
+import RangeInputForm from "../src/Components/RangeInput";
 import { setupStore } from "../src/store/store";
 import { renderWithProviders } from "./test-utils";
 import { postTx } from "../src/store/txSlice";

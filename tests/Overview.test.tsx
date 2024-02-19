@@ -1,4 +1,4 @@
-import Overview from "../src/Components/Overview/Overview";
+import Overview from "../src/Components/Overview";
 import { setupStore } from "../src/store/store";
 import { renderWithProviders } from "./test-utils";
 import { postTx } from "../src/store/txSlice";

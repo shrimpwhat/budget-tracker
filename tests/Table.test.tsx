@@ -1,4 +1,4 @@
-import Table from "../src/Components/Table/Table";
+import Table from "../src/Components/Table";
 import { setupStore } from "../src/store/store";
 import { renderWithProviders } from "./test-utils";
 import { postTx } from "../src/store/txSlice";

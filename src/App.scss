@@ -6,6 +6,9 @@
   --theme-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+:root[data-theme="dark"] {
+}
+
 html,
 body {
   margin: 0;
