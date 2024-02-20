@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const getInitalState = () => {
   const mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" as PaletteMode
+  document.documentElement.dataset.theme = mode
   return { mode }
 }
 

@@ -17,7 +17,7 @@ export default defineConfig({
         description: "Приложение для анализа доходов и расходов",
         theme_color: "#D8e4fc",
         orientation: "any",
-        display: "fullscreen",
+        display: "standalone",
         icons: [
           {
             src: "pwa-64x64.png",
