@@ -7,7 +7,7 @@
   --theme-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   --bg-color: white;
   --font-color: black;
-  background-image: url("./bg-light.svg");
+  background-image: url("/bg-light.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -17,7 +17,7 @@
   --font-color: white;
   --border-color: rgb(81, 81, 81);
   color: white;
-  background-image: url("./bg-dark.svg");
+  background-image: url("/bg-dark.svg");
 }
 
 html,
