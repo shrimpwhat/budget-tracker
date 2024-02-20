@@ -1,22 +1,19 @@
-import { useEffect, useState } from "react";
-import { DarkMode, LightMode } from "@mui/icons-material";
+import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
+import "./theme-toggle.scss";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { toggleTheme } from "../../store/themeSlice";
 
 export default function ThemeToggle() {
-  const [matchesDark, setMatchesDark] = useState(
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = matchesDark ? "dark" : "light";
-  }, [matchesDark]);
+  const { mode } = useAppSelector((state) => state.theme);
+  const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    setMatchesDark((prevState) => !prevState);
+    dispatch(toggleTheme());
   };
 
   return (
-    <button onClick={handleClick}>
-      {matchesDark ? <DarkMode /> : <LightMode />}
+    <button className="theme-toggle-button" onClick={handleClick}>
+      {mode === "dark" ? <LightModeOutlined /> : <DarkModeOutlined />}
     </button>
   );
 }

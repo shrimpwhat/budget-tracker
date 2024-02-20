@@ -4,12 +4,13 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-
+  margin-top: 50px;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   box-shadow: var(--theme-shadow);
   padding: 10px;
   box-sizing: border-box;
+  background-color: var(--bg-color);
 
   .chart__title {
     text-align: center;

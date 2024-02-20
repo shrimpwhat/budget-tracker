@@ -3,7 +3,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-block: 30px;
+  // margin-block: 30px;
 
   &__input {
     font-size: 1.5rem;
@@ -18,7 +18,7 @@
     margin-inline: 10px;
     width: 20px;
     height: 2px;
-    background-color: black;
+    background-color: var(--font-color);
     border: none;
   }
 }

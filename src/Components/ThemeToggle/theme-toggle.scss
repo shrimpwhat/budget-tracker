@@ -1,0 +1,33 @@
+.theme-toggle-button {
+  border: 1px solid var(--border-color);
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: var(--theme-shadow);
+  margin-bottom: 10px;
+  background-color: var(--bg-color);
+
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    transition: all 0.2s;
+    &:hover {
+      transform: scale(1.05);
+      background-color: rgb(44, 44, 44);
+      color: white;
+
+      :root[data-theme="dark"] & {
+        background-color: white;
+        color: black;
+      }
+    }
+  }
+
+  svg {
+    font-size: 2.5rem;
+    vertical-align: middle;
+  }
+}

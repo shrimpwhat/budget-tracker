@@ -1,11 +1,13 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import txReducer from "./txSlice";
 import dateRangeSlice, { loadRange } from "./dateRangeSlice";
+import themeReducer from "./themeSlice";
 import { listenerMiddleware } from "./middleware";
 
 const rootReducer = combineReducers({
   tx: txReducer,
   dateRange: dateRangeSlice,
+  theme: themeReducer,
 });
 
 export const setupStore = (preloadedState?: Partial<RootState>) => {

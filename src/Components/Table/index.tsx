@@ -201,10 +201,10 @@ export default function Table(
             height: "423px",
           }}
         />
-        <p className="section-description">
-          Чтобы отредактировать значение, нажмите на ячейку два раза
-        </p>
       </div>
+      <p className="section-description">
+        Чтобы отредактировать значение, нажмите на ячейку два раза
+      </p>
     </section>
   );
 }
