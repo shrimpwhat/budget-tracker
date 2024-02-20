@@ -36,7 +36,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
         type: txType.current,
         category: txCategory.current.value,
         value,
-        timestamp: date.getTime(),
+        timestamp: date.getTime() + date.getTimezoneOffset() * 60000,
         note: txNote.current?.value ?? "",
       })
     );

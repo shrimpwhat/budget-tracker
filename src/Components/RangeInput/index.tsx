@@ -12,6 +12,10 @@ const RangeInputForm = () => {
       : new Date(timestamp).toISOString().split("T")[0];
   };
 
+  const getUTCTimestamp = (date: Date) => {
+    return date.getTime() + date.getTimezoneOffset() * 60000;
+  };
+
   const handleDateChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     variant: "start" | "end"
@@ -20,7 +24,9 @@ const RangeInputForm = () => {
     let args: [number, number];
     if (date)
       args =
-        variant === "start" ? [date.getTime(), end] : [start, date.getTime()];
+        variant === "start"
+          ? [getUTCTimestamp(date), end]
+          : [start, getUTCTimestamp(date)];
     else args = variant === "start" ? [0, end] : [start, Infinity];
     localStorage.setItem("range-start", args[0].toString());
     localStorage.setItem("range-end", args[1].toString());

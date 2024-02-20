@@ -51,7 +51,6 @@ const Chart = ({
           {
             dataKey: "value",
             area: true,
-            color: "black",
             curve: "stepAfter",
             valueFormatter: (value: number) =>
               value.toLocaleString("default", {

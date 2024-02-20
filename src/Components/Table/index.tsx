@@ -34,7 +34,6 @@ export default function Table(
         break;
       }
     }
-
     if (!equal)
       dispatch(
         updateTx({
