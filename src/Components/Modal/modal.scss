@@ -38,7 +38,7 @@
 
   &__content {
     position: relative;
-    background: white;
+    background-color: var(--bg-color);
     animation: show-up 1s;
     margin: 5vh auto 0 auto;
     border: 1px solid var(--border-color);
@@ -71,6 +71,7 @@
       box-sizing: border-box;
       align-items: center;
       max-width: 450px;
+
       @media screen and (min-width: 768px) {
         gap: 40px;
       }
@@ -90,6 +91,14 @@
         border-radius: 5px;
         border: 1px var(--border-color) solid;
         font-size: 1rem;
+
+        color: inherit;
+        background-color: inherit;
+
+        &:focus {
+          outline: none;
+          border: 2px solid #90caf9;
+        }
       }
 
       input[type="radio"] {

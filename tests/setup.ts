@@ -13,6 +13,8 @@ const localStorageMock = vi.fn().mockImplementation(() => {
 });
 
 vi.stubGlobal("window.localStorage", localStorageMock);
+vi.stubGlobal("matchMedia", vi.fn().mockImplementation(() => ({ matches: false })));
+
 
 afterEach(async () => {
   cleanup();
