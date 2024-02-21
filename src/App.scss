@@ -10,6 +10,7 @@
   background-image: url("/bg-light.svg");
   background-repeat: no-repeat;
   background-size: cover;
+  color-scheme: light;
 }
 
 :root[data-theme="dark"] {
@@ -17,6 +18,7 @@
   --font-color: white;
   --border-color: rgb(81, 81, 81);
   color: white;
+  color-scheme: dark;
   background-image: url("/bg-dark.svg");
 }
 
@@ -55,9 +57,20 @@ button {
   }
 }
 
-input[type="number"] {
-  -moz-appearance: textfield;
-  -webkit-appearance: textfield;
+input {
+  border: 2px var(--border-color) solid;
+  color: inherit;
+  background-color: var(--bg-color);
+  outline: none;
+  border-radius: 5px;
+
+  &:focus {
+    border-color: #90caf9;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
 }
 
 input::-webkit-outer-spin-button,

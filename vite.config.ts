@@ -15,7 +15,7 @@ export default defineConfig({
         name: "Анализ бюджета",
         short_name: "Бюджет",
         description: "Приложение для анализа доходов и расходов",
-        theme_color: "#D8e4fc",
+        theme_color: "#f4faf9",
         orientation: "any",
         display: "standalone",
         icons: [
