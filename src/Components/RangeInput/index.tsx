@@ -39,14 +39,14 @@ const RangeInputForm = () => {
         type="date"
         defaultValue={getDateString(start)}
         onChange={(e) => handleDateChange(e, "start")}
-        className="range-form__input"
+        className="range-form__input app-input"
       />
       <hr />
       <input
         type="date"
         defaultValue={getDateString(end)}
         onChange={(e) => handleDateChange(e, "end")}
-        className="range-form__input"
+        className="range-form__input app-input"
       />
     </form>
   );

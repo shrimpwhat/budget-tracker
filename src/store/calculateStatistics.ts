@@ -21,6 +21,7 @@ const calcStats = (transactions: Record<number, Tx>) => {
     expenses: Record<string, number>;
   } = { incomes: {}, expenses: {} };
 
+  const networthMap: Record<number, number> = {}
   let networth = 0;
   for (const tx of Object.values(transactions).toSorted(
     (a, b) => a.timestamp - b.timestamp
@@ -37,9 +38,10 @@ const calcStats = (transactions: Record<number, Tx>) => {
       categoriesSum.expenses[category] =
         (categoriesSum.expenses[category] ?? 0) + tx.value;
     }
-    stats.networth.push({ timestamp: tx.timestamp, value: networth });
+    networthMap[tx.timestamp] = (networthMap[tx.timestamp] ?? 0) + networth
   }
 
+  stats.networth = Object.entries(networthMap).map(([timestamp, value]) => ({ timestamp: Number(timestamp), value }))
   Object.entries(categoriesSum.incomes).forEach(([key, value], index) => {
     stats.incomes.categories.push({
       id: index.toString(),

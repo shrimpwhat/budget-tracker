@@ -16,7 +16,6 @@ const Chart = ({
             data: data,
             innerRadius: 60,
             outerRadius: 140,
-
             cornerRadius: 5,
             highlightScope: { highlighted: "item", faded: "global" },
           },

@@ -57,7 +57,7 @@ button {
   }
 }
 
-input {
+.app-input {
   border: 2px var(--border-color) solid;
   color: inherit;
   background-color: var(--bg-color);
@@ -67,10 +67,10 @@ input {
   &:focus {
     border-color: #90caf9;
   }
+}
 
-  &[type="number"] {
-    -moz-appearance: textfield;
-  }
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 input::-webkit-outer-spin-button,

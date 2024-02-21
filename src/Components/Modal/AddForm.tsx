@@ -82,7 +82,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               Категория
             </label>
             <input
-              className="form__input"
+              className="form__input app-input"
               id="category-input"
               required
               list="categories"
@@ -99,7 +99,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               Сумма
             </label>
             <input
-              className="form__input"
+              className="form__input app-input"
               id="value-input"
               type="number"
               min="1"
@@ -112,7 +112,7 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
               Дата
             </label>
             <input
-              className="form__input"
+              className="form__input app-input"
               id="date-input"
               type="date"
               required
@@ -123,7 +123,11 @@ const AddForm = ({ closeModal }: { closeModal: () => void }) => {
             <label htmlFor="note-input" className="form__label">
               Комментарий
             </label>
-            <input className="form__input" id="note-input" ref={txNote} />
+            <input
+              className="form__input app-input"
+              id="note-input"
+              ref={txNote}
+            />
           </div>
           <button type="submit" className="btn-primary">
             Сохранить

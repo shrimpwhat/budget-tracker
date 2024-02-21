@@ -60,6 +60,9 @@ const Chart = ({
             showMark: false,
           },
         ]}
+        colors={(mode: "light" | "dark") => [
+          mode === "light" ? "black" : "white",
+        ]}
         axisHighlight={{
           y: "line",
           x: "line",
