@@ -47,8 +47,8 @@ button {
   max-width: 95vw;
   margin-inline: auto;
   min-height: 100dvh;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left) !important;
-
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left) !important;
 
   @media screen and (min-width: 1024px) {
     max-width: 1440px;
